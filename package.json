@@ -1,0 +1,22 @@
+{
+  "name": "searchwp-modal-form",
+  "main": "assets/src/main.js",
+  "scripts": {
+    "watch": "concurrently \"npm run dev\" \"npm run build\"",
+    "dev": "cross-env NODE_ENV=development node assets/bundler-dev.js",
+    "build": "cross-env NODE_ENV=production node assets/bundler-build.js"
+  },
+  "author": "SearchWP, LLC",
+  "license": "GPL-2.0",
+  "homepage": "https://searchwp.com/extensions/modal-form",
+  "dependencies": {
+    "autoprefixer": "^9.6.0",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "cssnano": "^4.1.10",
+    "micromodal": "^0.4.0",
+    "node-sass": "^4.12.0",
+    "parcel-bundler": "^1.12.3"
+  }
+}
