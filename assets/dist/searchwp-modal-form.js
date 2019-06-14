@@ -335,6 +335,14 @@ var _micromodal = _interopRequireDefault(require("micromodal"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_micromodal.default.init();
+_micromodal.default.init({
+  onShow: function onShow(modal) {
+    var $el = modal.querySelectorAll('[name="s"]');
+    $el.forEach(function ($input) {
+      $input.focus();
+      $input.select();
+    });
+  }
+});
 },{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js"}]},{},["searchwp-modal-form.js"], null)
 //# sourceMappingURL=/searchwp-modal-form.js.map
