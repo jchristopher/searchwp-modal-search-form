@@ -10,6 +10,9 @@ class SearchWPModalFormMenu {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 	}
 
+	/**
+	 * Initializer
+	 */
 	function init() {
 		add_action( 'admin_init', array( $this, 'add_meta_box' ) );
 		add_filter( 'wp_setup_nav_menu_item', array( $this, 'customize_menu_item_label' ) );
@@ -19,20 +22,11 @@ class SearchWPModalFormMenu {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'render_modal_nav_menu_item' ), 10, 4 );
 	}
 
-	public function get_modal_name_from_menu_item( $menu_item ) {
-		if ( 'custom' !== $menu_item->type ) {
-			return '';
-		}
-
-		if ( '#searchwp-modal-' !== substr( $menu_item->url, 0, 16 ) ) {
-			return '';
-		}
-
-		return substr( $menu_item->url, 16 );
-	}
-
+	/**
+	 * Output the markup of our menu item.
+	 */
 	public function render_modal_nav_menu_item( $item_output, $item, $depth, $args ){
-		$form_name = $this->get_modal_name_from_menu_item( $item );
+		$form_name = searchwp_get_modal_name_from_menu_item( $item );
 
 		if ( empty( $form_name ) ) {
 			return $item_output;
@@ -51,6 +45,9 @@ class SearchWPModalFormMenu {
 		return $item_output;
 	}
 
+	/**
+	 * Callback when updating a nav menu item. Store applicable metadata.
+	 */
 	public function wp_update_nav_menu_item( $menu_id = 0, $menu_item_db_id = 0, $args ) {
 		if ( ! current_user_can( 'edit_theme_options' ) ) {
 			return;
@@ -84,23 +81,31 @@ class SearchWPModalFormMenu {
 	 * @return array Mapping of ID to the field paragraph HTML.
 	 */
 	public function nav_menu_item_fields( $nav_menu_item_fields, $context ) {
-		$form_name = $this->get_modal_name_from_menu_item( $context['item'] );
+		$form_name = searchwp_get_modal_name_from_menu_item( $context['item'] );
 
 		if ( empty( $form_name ) ) {
 			return $nav_menu_item_fields;
 		}
 
-		// TODO: figure out what we need to customize for this specific form
 		unset( $nav_menu_item_fields['css-classes'] );
+
+		// We're going to hide the URL field because that's our flag for everything.
 		ob_start();
 		?>
 			<input type="hidden" id="edit-menu-item-custom-<?php echo $context['item']->ID; ?>" class="widefat edit-menu-item-custom" name="menu-item-custom[<?php echo $context['item']->ID; ?>]" value="<?php echo esc_attr( $context['item']->url ); ?>" />
 		<?php
 		$nav_menu_item_fields['custom'] = ob_get_clean();
 
+		// TODO: figure out what we need to customize for this specific form
+		// We already have the form defined from adding this nav menu item in the first place
+		// so I'm not sure what else needs to be added.
+
 		return $nav_menu_item_fields;
 	}
 
+	/**
+	 * Set up our custom Nav Menu Walker to control our customization fields.
+	 */
 	public function wp_edit_nav_menu_walker() {
 		include_once dirname( __FILE__ ) . '/MenuWalker.php';
 
@@ -113,7 +118,7 @@ class SearchWPModalFormMenu {
 	 * We can also pull in any relevant metadata we need from here.
 	 */
 	public function customize_menu_item_label( $menu_item ) {
-		if ( empty( $this->get_modal_name_from_menu_item( $menu_item ) ) ) {
+		if ( empty( searchwp_get_modal_name_from_menu_item( $menu_item ) ) ) {
 			return $menu_item;
 		}
 
