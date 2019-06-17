@@ -46,16 +46,27 @@
 	.modal__content .search-form {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 	}
 
 	.modal__content .search-form label {
 		flex: 1;
-		padding-right: 0.75em;
+		/*padding-right: 0.75em;*/ /* This may cause issues... */
+
+		/* Some common resets */
+		float: none;
+		margin: 0;
+		width: auto;
 	}
 
 	.modal__content .search-form label input {
 		display: block;
 		width: 100%;
+		margin-left: 0.75em;
+
+		/* Some common resets */
+		float: none;
+		margin: 0;
 	}
 
 	.modal__footer {
@@ -73,13 +84,12 @@
 
 	.modal__close:before {
 		content: "\00d7";
-		font-size: 1.5em;
-		line-height: 0.6em;
+		font-size: 2em;
 	}
 
-	/**************************\
-	  Demo Animation Style
-	\**************************/
+	/***********\
+	  Animation
+	\***********/
 	@keyframes mmfadeIn {
 		from { opacity: 0; }
 		  to { opacity: 1; }
