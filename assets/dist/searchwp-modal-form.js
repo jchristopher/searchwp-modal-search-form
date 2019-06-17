@@ -337,11 +337,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _micromodal.default.init({
   onShow: function onShow(modal) {
-    var $el = modal.querySelectorAll('[name="s"]');
-    $el.forEach(function ($input) {
-      $input.focus();
-      $input.select();
-    });
+    var $el = modal.querySelectorAll('[name="s"]')[0];
+    $el.focus();
+    $el.select();
   }
 });
 },{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js"}]},{},["searchwp-modal-form.js"], null)
