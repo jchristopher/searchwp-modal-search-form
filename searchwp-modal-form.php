@@ -47,11 +47,6 @@ class SearchWP_Modal_Form {
 	}
 
 	function includes() {
-		if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
-			// load our custom updater
-			include_once( dirname( __FILE__ ) . '/updater.php' );
-		}
-
 		include_once dirname( __FILE__ ) . '/includes/functions.php';
 		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
 		include_once dirname( __FILE__ ) . '/includes/Menu.php';
@@ -74,9 +69,14 @@ class SearchWP_Modal_Form {
 	}
 }
 
+// Kickoff!
 new SearchWP_Modal_Form();
 
 
+if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
+	// load our custom updater
+	include_once( dirname( __FILE__ ) . '/updater.php' );
+}
 
 /**
  * Set up the updater
