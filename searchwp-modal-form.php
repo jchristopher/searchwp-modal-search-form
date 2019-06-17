@@ -38,7 +38,23 @@ if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
 class SearchWP_Modal_Form {
 
 	function __construct() {
+		// Internal.
+		// add_action( 'init', array( $this, 'init' ) );
+		$this->includes();
+
+		// WordPress Core.
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
+	}
+
+	function includes() {
+		if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
+			// load our custom updater
+			include_once( dirname( __FILE__ ) . '/updater.php' );
+		}
+
+		include_once dirname( __FILE__ ) . '/includes/functions.php';
+		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
+		include_once dirname( __FILE__ ) . '/includes/Menu.php';
 	}
 
 	function display() {
@@ -60,16 +76,6 @@ class SearchWP_Modal_Form {
 
 new SearchWP_Modal_Form();
 
-
-
-
-/**
- * Instantiate the updater
- */
-if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
-	// load our custom updater
-	include_once( dirname( __FILE__ ) . '/updater.php' );
-}
 
 
 /**

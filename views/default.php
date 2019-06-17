@@ -1,13 +1,13 @@
-<p><a class="button" href="#" data-micromodal-trigger="modal-1">Trigger Modal</a></p>
+<a class="button" href="#" data-micromodal-trigger="modal-1">Trigger Modal</a>
 
 <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
-	<div class="modal__overlay" tabindex="-1" data-micromodal-close>
+	<div class="modal__overlay" tabindex="-1" data-searchwp-modal-form-close>
 		<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
 			<main class="modal__content" id="modal-1-content">
 				<?php echo get_search_form(); ?>
 			</main>
 			<footer class="modal__footer">
-				<button class="modal__close button" aria-label="Close modal" data-micromodal-close></button>
+				<button class="modal__close button" aria-label="Close modal" data-searchwp-modal-form-close></button>
 			</footer>
 		</div>
 	</div>

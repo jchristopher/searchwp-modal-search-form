@@ -5,5 +5,7 @@ MicroModal.init({
 		let $el = modal.querySelectorAll('[name="s"]')[0];
 		$el.focus();
 		$el.select();
-	}
+	},
+	openTrigger: 'searchwp-modal-form-open',
+	closeTrigger: 'searchwp-modal-form-close',
 });
