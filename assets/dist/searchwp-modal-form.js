@@ -328,10 +328,45 @@ var version = "0.3.2",
 
 var _default = MicroModal;
 exports.default = _default;
+},{}],"../../node_modules/domready/ready.js":[function(require,module,exports) {
+var define;
+/*!
+  * domready (c) Dustin Diaz 2014 - License MIT
+  */
+!function (name, definition) {
+
+  if (typeof module != 'undefined') module.exports = definition()
+  else if (typeof define == 'function' && typeof define.amd == 'object') define(definition)
+  else this[name] = definition()
+
+}('domready', function () {
+
+  var fns = [], listener
+    , doc = document
+    , hack = doc.documentElement.doScroll
+    , domContentLoaded = 'DOMContentLoaded'
+    , loaded = (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState)
+
+
+  if (!loaded)
+  doc.addEventListener(domContentLoaded, listener = function () {
+    doc.removeEventListener(domContentLoaded, listener)
+    loaded = 1
+    while (listener = fns.shift()) listener()
+  })
+
+  return function (fn) {
+    loaded ? setTimeout(fn, 0) : fns.push(fn)
+  }
+
+});
+
 },{}],"searchwp-modal-form.js":[function(require,module,exports) {
 "use strict";
 
 var _micromodal = _interopRequireDefault(require("micromodal"));
+
+var _domready = _interopRequireDefault(require("domready"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -340,9 +375,31 @@ _micromodal.default.init({
     var $el = modal.querySelectorAll('[name="s"]')[0];
     $el.focus();
     $el.select();
-  },
-  openTrigger: "data-searchwp-modal-trigger",
-  closeTrigger: "data-searchwp-modal-form-close"
+  }
 });
-},{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js"}]},{},["searchwp-modal-form.js"], null)
+
+(0, _domready.default)(function () {
+  // We're implementing our own click handlers for opening/closing modals so
+  // we have a bit more control over how the events execute (e.g. preventing default)
+  var showing = "";
+  var triggers = document.querySelectorAll("[data-searchwp-modal-trigger]");
+  var closers = document.querySelectorAll("[data-searchwp-modal-form-close]");
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener("click", function (event) {
+      event.preventDefault();
+      var modal = event.target.getAttribute("data-searchwp-modal-trigger");
+      showing = modal;
+
+      _micromodal.default.show(modal);
+    }, false);
+  });
+  closers.forEach(function (closer) {
+    closer.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      _micromodal.default.close(showing);
+    }, false);
+  });
+});
+},{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js","domready":"../../node_modules/domready/ready.js"}]},{},["searchwp-modal-form.js"], null)
 //# sourceMappingURL=/searchwp-modal-form.js.map
