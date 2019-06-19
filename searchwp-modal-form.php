@@ -37,16 +37,26 @@ if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
  */
 class SearchWP_Modal_Form {
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
-		// Internal.
-		// add_action( 'init', array( $this, 'init' ) );
-		$this->includes();
+		add_action( 'plugins_loaded', function() {
+			if ( function_exists( 'SWP' ) ) {
+				$this->includes();
 
-		add_action( 'wp_footer', array( $this, 'render_modals' ) );
+				add_action( 'wp_footer', array( $this, 'render_modals' ) );
+			}
+		});
 	}
 
+	/**
+	 * Callback to utilize all modals that have been enqueued for this page load
+	 * and output all applicable assets to make them all work.
+	 */
 	public function render_modals() {
-		$modals = apply_filters( 'searchwp_modal_search_form_enqueue', array() );
+		// All modals use this hook to enqueue themselves when implemented.
+		$modals = apply_filters( 'searchwp_modal_form_queue', array() );
 
 		if ( ! is_array( $modals ) ) {
 			return;
@@ -67,17 +77,22 @@ class SearchWP_Modal_Form {
 		$modals = array_unique( $modals );
 
 		foreach ( $modals as $modal ) {
-			$modal = new SearchWP_Modal_Form();
-			$modal->display();
+			$this->display();
 		}
 	}
 
+	/**
+	 * Relevant includes.
+	 */
 	public function includes() {
 		include_once dirname( __FILE__ ) . '/includes/functions.php';
 		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
 		include_once dirname( __FILE__ ) . '/includes/Menu.php';
 	}
 
+	/**
+	 * Output the view
+	 */
 	public function display() {
 		include 'views/default.php';
 	}
@@ -88,8 +103,7 @@ new SearchWP_Modal_Form();
 
 
 if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
-	// load our custom updater
-	include_once( dirname( __FILE__ ) . '/updater.php' );
+	include_once dirname( __FILE__ ) . '/updater.php';
 }
 
 /**
@@ -121,8 +135,11 @@ function searchwp_modal_form_update_check() {
 	$license_key = sanitize_text_field( $license_key );
 
 	// instantiate the updater to prep the environment
-	$searchwp_modal_form_updater = new SWP_Modal_Form_Updater( SEARCHWP_EDD_STORE_URL, __FILE__, array(
-			'item_id' 	=> 184439,
+	$searchwp_modal_form_updater = new SWP_Modal_Form_Updater(
+		SEARCHWP_EDD_STORE_URL,
+		__FILE__,
+		array(
+			'item_id'   => 184439,
 			'version'   => SEARCHWP_MODAL_FORM_VERSION,
 			'license'   => $license_key,
 			'item_name' => 'Modal Form',

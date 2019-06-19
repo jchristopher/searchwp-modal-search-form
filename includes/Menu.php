@@ -39,7 +39,7 @@ class SearchWPModalFormMenu {
 			$link->setAttribute( 'data-searchwp-modal-trigger', esc_attr( 'searchwp-modal-' . $modal_name ) );
 
 			// Enqueue modal template.
-			add_filter( 'searchwp_modal_search_form_enqueue', function( $forms ) use ( $modal_name ) {
+			add_filter( 'searchwp_modal_form_queue', function( $forms ) use ( $modal_name ) {
 				$forms[] = $modal_name;
 
 				return $forms;
@@ -126,6 +126,51 @@ class SearchWPModalFormMenu {
 
 		?>
 		<div id="posttype-searchwp-modal-forms" class="posttypediv">
+			<div id="tabs-panel-searchwp-modal-forms" class="tabs-panel-active">
+				<?php /* This markup is because of WordPress' JS selectors... */ ?>
+				<ul class="menu-item-title">
+					<li>
+						<table style="width: 100%;" id="searchwp-modal-forms-checklist" class="categorychecklist form-no-clear">
+							<thead>
+								<tr>
+									<th></th>
+									<th><?php echo esc_html_e( 'Engine', 'searchwp' ); ?></th>
+									<th><?php echo esc_html_e( 'Template', 'searchwp' ); ?></th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+							$i = -1;
+							foreach ( $forms as $key => $value ) :
+								?>
+								<tr>
+									<td>
+										<?php /* This markup is because of WordPress' JS selectors... */ ?>
+										<ul>
+											<li>
+												<input type="checkbox" class="menu-item-checkbox" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-object-id]" value="<?php echo esc_attr( $i ); ?>" />
+												<input type="hidden" class="menu-item-type" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-type]" value="custom" />
+												<input type="hidden" class="menu-item-title" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-title]" value="<?php echo esc_html( $value['engine_label'] ); ?>" />
+												<input type="hidden" class="menu-item-url" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-url]" value="#searchwp-modal-<?php echo esc_attr( $key ); ?>" />
+												<input type="hidden" class="menu-item-classes" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-classes]" />
+											</li>
+										</ul>
+									</td>
+									<td><?php echo esc_html( $value['engine_label'] ); ?></td>
+									<td><?php echo esc_html( $value['template_label'] ); ?></td>
+								</tr>
+								<?php
+								$i--;
+								endforeach;
+							?>
+							</tbody>
+						</table>
+					</li>
+				</ul>
+			</div>
+
+			<?php
+			/*
 			<div id="tabs-panel-searchwp-modal-forms" class="tabs-panel tabs-panel-active">
 				<ul id="searchwp-modal-forms-checklist" class="categorychecklist form-no-clear">
 					<?php
@@ -147,6 +192,9 @@ class SearchWPModalFormMenu {
 					?>
 				</ul>
 			</div>
+			*/
+			?>
+
 			<p class="button-controls">
 				<span class="list-controls">
 					<a href="<?php echo esc_url( admin_url( 'nav-menus.php?page-tab=all&selectall=1#posttype-searchwp-modal-forms' ) ); ?>" class="select-all"><?php esc_html_e( 'Select all', 'searchwpmodalform' ); ?></a>
