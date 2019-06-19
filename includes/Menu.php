@@ -29,7 +29,13 @@ class SearchWPModalFormMenu {
 
 					// Pluck out our menu items based on their URL.
 					let $nav_items = $menu.children().filter(function(index){
-						let nav_item_url = jQuery( '.menu-item-settings .field-url input', this ).val().substr(0, 16);
+						let $nav_item_url_field = jQuery( '.menu-item-settings .field-url input', this );
+
+						if(!$nav_item_url_field.length) {
+							return false;
+						}
+
+						let nav_item_url = $nav_item_url_field.val().substr(0, 16);
 						return nav_item_url === '#searchwp-modal-';
 					});
 
@@ -38,8 +44,9 @@ class SearchWPModalFormMenu {
 						var $this = jQuery(this);
 						$this.find('.item-type').text('Modal Search Form');
 						$this.find('.menu-item-settings')
+							.prepend('<p style="margin-bottom: 1em;" class="description searchwp-modal-search-form-note">This is a SearchWP Modal Search Form. You can customize the details of this Menu Item <a href="#">here</a>.</p>')
 							.children()
-							.not('.description, .field-move, .menu-item-actions')
+							.not('.description, .field-move, .menu-item-actions, .searchwp-modal-search-form-note')
 							.hide();
 						$this.find('p.description.field-url').hide();
 					});
