@@ -15,6 +15,12 @@ function searchwp_get_modal_forms() {
 	return $forms;
 }
 
+function searchwp_get_modal_name_from_uri( $uri ) {
+	$name = '#searchwp-modal-' === substr( $uri, 0, 16 ) ? substr( $uri, 16 ) : false;
+
+	return $name;
+}
+
 /**
  * Determine whether the provided menu item is one of ours.
  */
@@ -23,7 +29,7 @@ function searchwp_get_modal_name_from_menu_item( $menu_item ) {
 		return '';
 	}
 
-	if ( '#searchwp-modal-' !== substr( $menu_item->url, 0, 16 ) ) {
+	if ( ! searchwp_get_modal_name_from_uri( $menu_item->url ) ) {
 		return '';
 	}
 

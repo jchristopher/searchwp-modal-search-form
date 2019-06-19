@@ -9,6 +9,52 @@ class SearchWPModalFormMenu {
 	public function __construct() {
 		add_action( 'load-nav-menus.php', array( $this, 'add_nav_menu_meta_boxes' ) );
 		add_action( 'admin_print_footer_scripts-nav-menus.php', array( $this, 'customize_nav_items' ) );
+		add_filter( 'wp_nav_menu', array( $this, 'wp_nav_menu' ), 10, 2 );
+	}
+
+	/**
+	 * Because we can't walk Menus directly (see note for @customize_nav_items)
+	 * we're going to manually process the fully generated HTML because
+	 * there's no other reliable way to do it so here we go...
+	 */
+	public function wp_nav_menu( $nav_menu, $args ) {
+		// If there's no reference to our modal URL flag, bail out.
+		if ( false === strpos( strtolower( $nav_menu ), '#searchwp-modal-' ) ) {
+			return $nav_menu;
+		}
+
+		// TODO: We need to check for the existence of this class on init of this plugin as a whole.
+		$dom = new DOMDocument();
+		$dom->loadHTML( $nav_menu );
+
+		foreach ( $dom->getElementsByTagName( 'a' ) as $link ) {
+
+			// If there's no URI flag for a modal, skip this.
+			$modal_name = searchwp_get_modal_name_from_uri( $link->getAttribute( 'href' ) );
+			if ( ! $modal_name ) {
+				continue;
+			}
+
+			// Attach our data attribute that acts as a trigger for this modal.
+			$link->setAttribute( 'data-searchwp-modal-trigger', esc_attr( 'searchwp-modal-' . $modal_name ) );
+
+			// Enqueue modal template.
+			add_filter( 'searchwp_modal_search_form_enqueue', function( $forms ) use ( $modal_name ) {
+				$forms[] = $modal_name;
+
+				return $forms;
+			} );
+		}
+
+		// We have a fully developed HTML document, but we only want the menu itself.
+		$full_html = $dom->saveHTML();
+		$nav_menu = substr(
+			$full_html,
+			strpos( $full_html, '<body>' ) + 6,
+			strpos( $full_html, '</body>' )
+		);
+
+		return $nav_menu;
 	}
 
 	/**

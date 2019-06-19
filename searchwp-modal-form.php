@@ -37,28 +37,24 @@ if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
  */
 class SearchWP_Modal_Form {
 
-	function __construct() {
+	public function __construct() {
 		// Internal.
 		// add_action( 'init', array( $this, 'init' ) );
 		$this->includes();
 
-		// WordPress Core.
-		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
+		add_action( 'wp_footer', array( $this, 'render_modals' ) );
 	}
 
-	function includes() {
-		include_once dirname( __FILE__ ) . '/includes/functions.php';
-		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
-		include_once dirname( __FILE__ ) . '/includes/Menu.php';
-	}
+	public function render_modals() {
+		$modals = apply_filters( 'searchwp_modal_search_form_enqueue', array() );
 
-	function display() {
-		include 'views/default.php';
-	}
+		if ( ! is_array( $modals ) ) {
+			return;
+		}
 
-	function assets() {
 		$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) || ( isset( $_GET['script_debug'] ) ) ? '' : '.min';
 
+		// Output the main trigger handler and modal framework.
 		wp_enqueue_script(
 			'searchwp-modal-form',
 			plugin_dir_url( __FILE__ ) . "assets/dist/searchwp-modal-form${debug}.js",
@@ -66,6 +62,24 @@ class SearchWP_Modal_Form {
 			SEARCHWP_MODAL_FORM_VERSION,
 			true
 		);
+
+		// Output all enqueued modal templates that are used on this page load.
+		$modals = array_unique( $modals );
+
+		foreach ( $modals as $modal ) {
+			$modal = new SearchWP_Modal_Form();
+			$modal->display();
+		}
+	}
+
+	public function includes() {
+		include_once dirname( __FILE__ ) . '/includes/functions.php';
+		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
+		include_once dirname( __FILE__ ) . '/includes/Menu.php';
+	}
+
+	public function display() {
+		include 'views/default.php';
 	}
 }
 

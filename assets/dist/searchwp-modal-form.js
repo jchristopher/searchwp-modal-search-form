@@ -341,8 +341,8 @@ _micromodal.default.init({
     $el.focus();
     $el.select();
   },
-  openTrigger: 'searchwp-modal-form-open',
-  closeTrigger: 'searchwp-modal-form-close'
+  openTrigger: "data-searchwp-modal-trigger",
+  closeTrigger: "data-searchwp-modal-form-close"
 });
 },{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js"}]},{},["searchwp-modal-form.js"], null)
 //# sourceMappingURL=/searchwp-modal-form.js.map
