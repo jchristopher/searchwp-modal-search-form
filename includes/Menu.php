@@ -11,6 +11,16 @@ class SearchWPModalFormMenu {
 		add_action( 'admin_print_footer_scripts-nav-menus.php', array( $this, 'customize_nav_items' ) );
 	}
 
+	/**
+	 * Customize Menu nav items to provide a UI that makes sense for what we're doing.
+	 * Why do we not use PHP to do this you may ask? Valid question! It's because in order
+	 * to customize individual Menu items you need to use a custom Walker, which works.
+	 * Unfortunately because of the implementation of Walkers, there can be only one. Many
+	 * other plugins/themes use their own Walkers to do this exact job (e.g. ACF) and if
+	 * we also do this job, we're overriding everything they do. This forces us to resort
+	 * to JavaScript hacks based on a known URL structure for the Menu item that allows us
+	 * to determine which Menu items are in fact ours, and we can then customize from there.
+	 */
 	public function customize_nav_items() {
 		?>
 			<script type="text/javascript">
@@ -23,8 +33,7 @@ class SearchWPModalFormMenu {
 						return nav_item_url === '#searchwp-modal-';
 					});
 
-					// console.log($nav_items);
-
+					// Hide WordPress core UI that's not applicable.
 					$nav_items.each(function(){
 						var $this = jQuery(this);
 						$this.find('.item-type').text('Modal Search Form');
@@ -34,9 +43,6 @@ class SearchWPModalFormMenu {
 							.hide();
 						$this.find('p.description.field-url').hide();
 					});
-
-					// Hide anything that's not applicable
-					// $nav_items.find(':not(.description):not(.field-move):not(.menu-item-actions)').hide();
 				};
 
 				jQuery(document).ready(function($){
