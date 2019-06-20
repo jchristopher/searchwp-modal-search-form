@@ -41,12 +41,12 @@ class SearchWP_Modal_Form {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', function() {
-			if ( function_exists( 'SWP' ) ) {
-				$this->includes();
+		define( 'SEARCHWP_MODAL_FORM_DIR', dirname( __FILE__ ) );
 
-				add_action( 'wp_footer', array( $this, 'render_modals' ) );
-			}
+		add_action( 'plugins_loaded', function() {
+			$this->includes();
+
+			add_action( 'wp_footer', array( $this, 'render_modals' ) );
 		});
 	}
 
