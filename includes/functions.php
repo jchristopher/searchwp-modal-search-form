@@ -4,10 +4,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Load all available templates and their labels.
+ */
 function searchwp_modal_form_get_templates() {
-	$templates = array( 'default' );
+	$templates    = array();
+	$template_dir = apply_filters( 'searchwp_modal_form_template_dir', 'searchwp-modal-form' );
+
+	// Scan all applicable directories for template files.
+	$template_files = array_merge(
+		glob( trailingslashit( SEARCHWP_MODAL_FORM_DIR ) . 'templates/*.[pP][hH][pP]' ), // Plugin.
+		glob( trailingslashit( get_stylesheet_directory() ) . trailingslashit( $template_dir ) . '*.[pP][hH][pP]' ), // Child Theme.
+		glob( trailingslashit( get_template_directory() ) . trailingslashit( $template_dir ) . '*.[pP][hH][pP]' ) // Parent Theme.
+	);
+
+	// Scan all files for required 'header' data.
+	foreach ( $template_files as $key => $template_file ) {
+		$data = searchwp_modal_form_get_template_data( $template_file );
+		if ( ! empty( $data['template_label'] ) ) {
+			$templates[] = array(
+				'file'  => $template_file,
+				'label' => $data['template_label'],
+			);
+		}
+	}
 
 	return $templates;
+}
+
+/**
+ * Retrieve file data from file path.
+ *
+ * @return array
+ */
+function searchwp_modal_form_get_template_data( $template ) {
+	include_once ABSPATH . 'wp-admin/includes/file.php';
+	WP_Filesystem();
+
+	if ( ! file_exists( $template ) ) {
+		return array();
+	}
+
+	return get_file_data( $template, array(
+		'template_label' => 'SearchWP Modal Form Name',
+	) );
 }
 
 /**
@@ -15,32 +55,45 @@ function searchwp_modal_form_get_templates() {
  * of search engines and modal templates (which are file-based for the time being)
  */
 function searchwp_get_modal_forms() {
-	$engines   = SWP()->settings['engines'];
+	// If SearchWP is NOT available, we've only got one engine to work with.
+	// We're going to mimic SearchWP's settings structure and then override.
+	$engines = array(
+		'wp_native' => array(
+			// We're again mimicking the SearchWP storage here.
+			'searchwp_engine_label' => __( 'Native WordPress', 'searchwpmodalform' ),
+		),
+	);
+
+	// Override if SearchWP is active.
+	if ( function_exists( 'SWP' ) ) {
+		$engines = SWP()->settings['engines'];
+	}
+
+	// Retrieve all available templates.
 	$templates = searchwp_modal_form_get_templates();
-	$forms     = array();
+
+	// Storage for our forms map.
+	$forms = array();
 
 	foreach ( $engines as $engine_name => $engine_settings ) {
+
+		$engine_label = isset( $engine_settings['searchwp_engine_label'] )
+				? $engine_settings['searchwp_engine_label']
+				: __( 'Default', 'searchwp' );
+
 		foreach ( $templates as $template ) {
-			$form_name = $engine_name . '-' . $template;
+			// Build form name based on combination of engine name and relative template path.
+			$form_name = $engine_name . '-' . str_replace( ABSPATH, '', $template['file'] );
 
-			$engine_label = isset( $engine_settings['searchwp_engine_label'] )
-								? $engine_settings['searchwp_engine_label']
-								: __( 'Default', 'searchwp' );
+			$hash = md5( $form_name . $engine_name );
 
-			$template_label = sanitize_title_with_dashes( $template );
-			$template_label = explode( '-', $template_label );
-			$template_label = array_map( 'ucfirst', $template_label );
-			$template_label = implode( ' ', $template_label );
-
-			$forms[ $form_name ] = array(
-				'name'           => $form_name,
-				'template_name'  => $template,
-				'template_label' => $template_label,
+			$forms[ $hash ] = array(
+				'name'           => $hash,
+				'template_file'  => $template['file'],
+				'template_label' => $template['label'],
 				'engine_name'    => $engine_name,
 				'engine_label'   => $engine_label,
 			);
-
-			// $engine_label . '/' . $template_label;
 		}
 	}
 
@@ -49,6 +102,9 @@ function searchwp_get_modal_forms() {
 	return $forms;
 }
 
+/**
+ * Extracts the modal name from an existing URI.
+ */
 function searchwp_get_modal_name_from_uri( $uri ) {
 	$name = '#searchwp-modal-' === substr( $uri, 0, 16 ) ? substr( $uri, 16 ) : false;
 
@@ -63,9 +119,11 @@ function searchwp_get_modal_name_from_menu_item( $menu_item ) {
 		return '';
 	}
 
-	if ( ! searchwp_get_modal_name_from_uri( $menu_item->url ) ) {
+	$modal_name = searchwp_get_modal_name_from_uri( $menu_item->url );
+
+	if ( ! $modal_name ) {
 		return '';
 	}
 
-	return substr( $menu_item->url, 16 );
+	return $modal_name;
 }
