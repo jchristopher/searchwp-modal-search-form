@@ -51,10 +51,9 @@ function searchwp_modal_form_get_template_data( $template ) {
 }
 
 /**
- * Generates a map of available modals which are defined by all combinations
- * of search engines and modal templates (which are file-based for the time being)
+ * Retrieve available search engines.
  */
-function searchwp_get_modal_forms() {
+function searchwp_modal_form_get_engines() {
 	// If SearchWP is NOT available, we've only got one engine to work with.
 	// We're going to mimic SearchWP's settings structure and then override.
 	$engines = array(
@@ -69,11 +68,17 @@ function searchwp_get_modal_forms() {
 		$engines = SWP()->settings['engines'];
 	}
 
-	// Retrieve all available templates.
-	$templates = searchwp_modal_form_get_templates();
+	return $engines;
+}
 
-	// Storage for our forms map.
-	$forms = array();
+/**
+ * Generates a map of available modals which are defined by all combinations
+ * of search engines and modal templates (which are file-based for the time being)
+ */
+function searchwp_get_modal_forms() {
+	$engines   = searchwp_modal_form_get_engines();
+	$templates = searchwp_modal_form_get_templates();
+	$forms     = array();
 
 	foreach ( $engines as $engine_name => $engine_settings ) {
 
@@ -82,10 +87,7 @@ function searchwp_get_modal_forms() {
 				: __( 'Default', 'searchwp' );
 
 		foreach ( $templates as $template ) {
-			// Build form name based on combination of engine name and relative template path.
-			$form_name = $engine_name . '-' . str_replace( ABSPATH, '', $template['file'] );
-
-			$hash = md5( $form_name . $engine_name );
+			$hash = searchwp_modal_form_get_template_hash( $engine_name, $template['file'] );
 
 			$forms[ $hash ] = array(
 				'name'           => $hash,
@@ -100,6 +102,45 @@ function searchwp_get_modal_forms() {
 	$forms = apply_filters( 'searchwp_modal_search_form_refs', $forms );
 
 	return $forms;
+}
+
+/**
+ * Given a hash, determine engine and template file.
+ */
+function searchwp_modal_form_reverse_hash_lookup( $hash ) {
+	$engines   = searchwp_modal_form_get_engines();
+	$templates = searchwp_modal_form_get_templates();
+	$found     = false;
+
+	foreach ( $engines as $engine_name => $engine_settings ) {
+		foreach ( $templates as $template ) {
+			$template_hash = searchwp_modal_form_get_template_hash( $engine_name, $template['file'] );
+
+			if ( $template_hash === $hash ) {
+				$found = array(
+					'engine'   => $engine_name,
+					'template' => $template,
+				);
+
+				break;
+			}
+		}
+
+		if ( $found ) {
+			break;
+		}
+	}
+
+	return $found;
+}
+
+/**
+ * Builds a hash based on combination of engine name and relative template path.
+ */
+function searchwp_modal_form_get_template_hash( $engine, $file ) {
+	$form_name = $engine . '-' . str_replace( ABSPATH, '', $file );
+
+	return md5( $form_name . $engine );
 }
 
 /**

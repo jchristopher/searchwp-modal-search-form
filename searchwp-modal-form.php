@@ -32,6 +32,10 @@ if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
 	define( 'SEARCHWP_MODAL_FORM_VERSION', '0.1' );
 }
 
+if ( ! defined( 'SEARCHWP_MODAL_FORM_DIR' ) ) {
+	define( 'SEARCHWP_MODAL_FORM_DIR', dirname( __FILE__ ) );
+}
+
 /**
  * Class SearchWP_Modal_Form
  */
@@ -41,8 +45,6 @@ class SearchWP_Modal_Form {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'SEARCHWP_MODAL_FORM_DIR', dirname( __FILE__ ) );
-
 		add_action( 'plugins_loaded', function() {
 			$this->includes();
 
@@ -56,9 +58,9 @@ class SearchWP_Modal_Form {
 	 */
 	public function render_modals() {
 		// All modals use this hook to enqueue themselves when implemented.
-		$modals = apply_filters( 'searchwp_modal_form_queue', array() );
+		$enqueued_modals = apply_filters( 'searchwp_modal_form_queue', array() );
 
-		if ( ! is_array( $modals ) ) {
+		if ( ! is_array( $enqueued_modals ) || empty( $enqueued_modals ) ) {
 			return;
 		}
 
@@ -74,10 +76,19 @@ class SearchWP_Modal_Form {
 		);
 
 		// Output all enqueued modal templates that are used on this page load.
-		$modals = array_unique( $modals );
-
-		foreach ( $modals as $modal ) {
-			$this->display();
+		foreach ( array_unique( $enqueued_modals ) as $modal_hash ) {
+			$modal = searchwp_modal_form_reverse_hash_lookup( $modal_hash );
+			?>
+			<div class="searchwp-modal-form" id="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>" aria-hidden="true">
+				<?php
+				if ( file_exists( $modal['template']['file'] ) ) {
+					include $modal['template']['file'];
+				} else {
+					echo esc_html_e( 'Template not found!', 'searchwpmodalform' );
+				}
+				?>
+			</div>
+			<?php
 		}
 	}
 
@@ -88,13 +99,6 @@ class SearchWP_Modal_Form {
 		include_once dirname( __FILE__ ) . '/includes/functions.php';
 		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
 		include_once dirname( __FILE__ ) . '/includes/Menu.php';
-	}
-
-	/**
-	 * Output the view
-	 */
-	public function display() {
-		include 'views/default.php';
 	}
 }
 
