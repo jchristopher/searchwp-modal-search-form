@@ -18,31 +18,11 @@ class SearchWPModalFormShortcode {
 			'type'     => 'link',
 		), $atts );
 
-		if ( function_exists( 'SWP' ) ) {
-			$engine = SWP()->is_valid_engine( $args['engine'] ) ? $args['engine'] : 'default';
-		} else {
-			$engine = '{wp_native}';
-		}
-
-		$template   = searchwp_modal_form_get_template_from_label( $args['template'] );
-		$modal_hash = searchwp_modal_form_get_template_hash( $engine, $template['file'] );
-
-		add_filter( 'searchwp_modal_form_queue', function( $forms ) use ( $modal_hash ) {
-			$forms[] = $modal_hash;
-
-			return $forms;
-		} );
+		$args['echo'] = true;
 
 		ob_start();
-		if ( 'button' === $args['type'] ) {
-			?>
-			<button data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></button>
-			<?php
-		} else {
-			?>
-			<a href="<?php echo esc_attr( '#searchwp-modal-' . $modal_hash ); ?>" data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></a>
-			<?php
-		}
+
+		searchwp_modal_form_trigger( $args );
 
 		return ob_get_clean();
 	}

@@ -4,6 +4,60 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+function searchwp_modal_form_trigger( $args ) {
+	$defaults = array(
+		'engine'   => 'default',
+		'template' => 'Default',
+		'text'     => __( 'Search', 'searchwpmodalform' ),
+		'type'     => 'link',
+		'echo'     => true,
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	if ( function_exists( 'SWP' ) ) {
+		$engine = SWP()->is_valid_engine( $args['engine'] ) ? $args['engine'] : 'default';
+	} else {
+		$engine = '{wp_native}';
+	}
+
+	$template   = searchwp_modal_form_get_template_from_label( $args['template'] );
+	$modal_hash = searchwp_modal_form_get_template_hash( $engine, $template['file'] );
+
+	add_filter( 'searchwp_modal_form_queue', function( $forms ) use ( $modal_hash ) {
+		$forms[] = $modal_hash;
+
+		return $forms;
+	} );
+
+	ob_start();
+	if ( 'button' === $args['type'] ) {
+		?>
+		<button data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></button>
+		<?php
+	} else {
+		?>
+		<a href="<?php echo esc_attr( '#searchwp-modal-' . $modal_hash ); ?>" data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></a>
+		<?php
+	}
+
+	$output = ob_get_clean();
+
+	if ( $args['echo'] ) {
+		echo wp_kses(
+			$output,
+			array(
+				'a' => array(
+					'href'                        => array(),
+					'data-searchwp-modal-trigger' => array(),
+				),
+			)
+		);
+	} else {
+		return $output;
+	}
+}
+
 /**
  * Load all available templates and their labels.
  */
