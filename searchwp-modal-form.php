@@ -45,6 +45,9 @@ class SearchWP_Modal_Form {
 	 * Constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'register_block_type' ) );
+		add_filter( 'block_categories', array( $this, 'block_categories' ) );
+
 		add_action( 'plugins_loaded', function() {
 			$this->includes();
 
@@ -99,6 +102,92 @@ class SearchWP_Modal_Form {
 		include_once dirname( __FILE__ ) . '/includes/functions.php';
 		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
 		include_once dirname( __FILE__ ) . '/includes/Menu.php';
+	}
+
+	/**
+	 * Register block if applicable.
+	 */
+	public static function register_block_type() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			// Gutenberg is not active.
+			return;
+		}
+
+		wp_register_style(
+			'searchwp-modal-form-block',
+			plugin_dir_url( __FILE__ ) . 'assets/dist/block.build.css',
+			array(),
+			SEARCHWP_MODAL_FORM_VERSION
+		);
+
+		wp_register_script(
+			'searchwp-modal-form-block',
+			plugin_dir_url( __FILE__ ) . 'assets/dist/block.build.js',
+			array( 'wp-blocks', 'wp-i18n', 'wp-components', 'wp-data', 'wp-editor', 'wp-element' ),
+			SEARCHWP_MODAL_FORM_VERSION,
+			true
+		);
+
+		register_block_type(
+			'searchwp/modal-form',
+			array(
+				'editor_script'   => 'searchwp-modal-form-block',
+				'editor_style'    => 'searchwp-modal-form-block',
+				'attributes'      => array(
+					'engine'   => array( 'type' => 'string' ),
+					'template' => array( 'type' => 'string' ),
+					'text'     => array( 'type' => 'string' ),
+					'type'     => array( 'type' => 'string' ),
+				),
+				'render_callback' => array( $this, 'render_block_modal_form' ),
+			)
+		);
+
+		// if ( function_exists( 'wp_set_script_translations' ) ) {
+		// 	wp_set_script_translations( 'searchwp-modal-form-block', 'searchwpmodalform', SEARCHWP_MODAL_FORM_DIR . '/languages' );
+		// }
+	}
+
+	/**
+	 * Render the server-side block on the front-end.
+	 *
+	 * @param array  $attributes The block attributes.
+	 * @param string $content The block inner content.
+	 *
+	 * @return string
+	 */
+	public static function render_block_modal_form( $attributes, $content ) {
+		$args = array_merge(
+			$attributes,
+			array(
+				'post_id' => empty( $_GET['post_id'] ) ? null : abs( $_GET['post_id'] ),
+			)
+		);
+
+		$args['echo'] = false;
+
+		return searchwp_modal_form_trigger( $args );
+	}
+
+	/**
+	 * Add a block category for SearchWP if it doesn't exist already.
+	 *
+	 * @param array $categories Array of block categories.
+	 *
+	 * @return array
+	 */
+	public static function block_categories( $categories ) {
+		$category_slugs = wp_list_pluck( $categories, 'slug' );
+		return in_array( 'searchwp', $category_slugs, true ) ? $categories : array_merge(
+			$categories,
+			array(
+				array(
+					'slug'  => 'searchwp',
+					'title' => 'SearchWP',
+					'icon'  => null,
+				),
+			)
+		);
 	}
 }
 

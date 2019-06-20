@@ -33,7 +33,7 @@ function searchwp_modal_form_trigger( $args ) {
 	ob_start();
 	if ( 'button' === $args['type'] ) {
 		?>
-		<button data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></button>
+		<button class="button" data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></button>
 		<?php
 	} else {
 		?>
