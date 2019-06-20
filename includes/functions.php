@@ -57,7 +57,7 @@ function searchwp_modal_form_get_engines() {
 	// If SearchWP is NOT available, we've only got one engine to work with.
 	// We're going to mimic SearchWP's settings structure and then override.
 	$engines = array(
-		'wp_native' => array(
+		'{wp_native}' => array(
 			// We're again mimicking the SearchWP storage here.
 			'searchwp_engine_label' => __( 'Native WordPress', 'searchwpmodalform' ),
 		),
@@ -102,6 +102,25 @@ function searchwp_get_modal_forms() {
 	$forms = apply_filters( 'searchwp_modal_search_form_refs', $forms );
 
 	return $forms;
+}
+
+/**
+ * Given a hash, determine engine and template file.
+ */
+function searchwp_modal_form_get_template_from_label( $label = 'Default' ) {
+	$templates = searchwp_modal_form_get_templates();
+
+	if ( empty( $templates ) ) {
+		return null;
+	}
+
+	foreach ( $templates as $template ) {
+		if ( $template['label'] === $label ) {
+			break;
+		}
+	}
+
+	return $template;
 }
 
 /**
