@@ -70,6 +70,7 @@ class SearchWPModalFormMenu {
 	public function customize_nav_items() {
 		?>
 			<script type="text/javascript">
+				var _SEARCHWP_MODAL_FORMS = JSON.parse('<?php echo wp_json_encode( searchwp_get_modal_forms() ); ?>');
 				var searchwp_modal_forms_update_menu_items = function() {
 					let $menu = jQuery('#menu-to-edit');
 
@@ -82,15 +83,20 @@ class SearchWPModalFormMenu {
 						}
 
 						let nav_item_url = $nav_item_url_field.val().substr(0, 16);
+
 						return nav_item_url === '#searchwp-modal-';
 					});
 
 					// Hide WordPress core UI that's not applicable.
 					$nav_items.each(function(){
 						var $this = jQuery(this);
+
+						var hash = $this.find('.field-url input').val().substr(16);
+						var data = _SEARCHWP_MODAL_FORMS[ hash ];
+
 						$this.find('.item-type').text('Modal Search Form');
 						$this.find('.menu-item-settings')
-							.prepend('<p style="margin-bottom: 1em;" class="description searchwp-modal-search-form-note">This is a SearchWP Modal Search Form. You can customize the details of this Menu Item <a href="#">here</a>.</p>')
+							.prepend('<p style="margin-bottom: 1em;" class="description searchwp-modal-search-form-note">This is a SearchWP Modal Search Form.<br><strong>Engine:</strong> ' + data.engine_label  + '<br><strong>Template:</strong> ' + data.template_label + '</p>')
 							.children()
 							.not('.description, .field-move, .menu-item-actions, .searchwp-modal-search-form-note')
 							.hide();
@@ -127,10 +133,10 @@ class SearchWPModalFormMenu {
 		?>
 		<div id="posttype-searchwp-modal-forms" class="posttypediv">
 			<div id="tabs-panel-searchwp-modal-forms" class="tabs-panel-active">
-				<?php /* This markup is because of WordPress' JS selectors... */ ?>
+				<?php /* This markup is because of WordPress' JS selectors... the inline styles are because of lazy and MVP :) */ ?>
 				<ul class="menu-item-title">
 					<li>
-						<table style="width: 100%;" id="searchwp-modal-forms-checklist" class="categorychecklist form-no-clear">
+						<table style="width: 100%; margin-top: 0; border-collapse: collapse;" id="searchwp-modal-forms-checklist" class="categorychecklist form-no-clear">
 							<thead>
 								<tr>
 									<th></th>
@@ -140,24 +146,33 @@ class SearchWPModalFormMenu {
 							</thead>
 							<tbody>
 							<?php
-							$i = -1;
+							$i = -1; // This is borrowed from WooCommerce's implementation, but can probably be a proper count, there's a global IIRC.
 							foreach ( $forms as $key => $value ) :
+								$input_id = 'searchwp-modal-ref-' . absint( $i );
 								?>
 								<tr>
-									<td>
-										<?php /* This markup is because of WordPress' JS selectors... */ ?>
+									<td style="padding: 0.25em 0;">
+									<?php /* This markup is because of WordPress' JS selectors... the inline styles are because of lazy and MVP :) */ ?>
 										<ul>
-											<li>
-												<input type="checkbox" class="menu-item-checkbox" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-object-id]" value="<?php echo esc_attr( $i ); ?>" />
+											<li style="margin: 0;">
+												<input type="checkbox" class="menu-item-checkbox" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-object-id]" value="<?php echo esc_attr( $i ); ?>" id="<?php echo esc_attr( $input_id ); ?>" />
 												<input type="hidden" class="menu-item-type" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-type]" value="custom" />
 												<input type="hidden" class="menu-item-title" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-title]" value="<?php echo esc_html( $value['engine_label'] ); ?>" />
-												<input type="hidden" class="menu-item-url" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-url]" value="#searchwp-modal-<?php echo esc_attr( $key ); ?>" />
+												<input type="hidden" class="menu-item-url" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-url]" value="#searchwp-modal-<?php echo esc_attr( $value['name'] ); ?>" />
 												<input type="hidden" class="menu-item-classes" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-classes]" />
 											</li>
 										</ul>
 									</td>
-									<td><?php echo esc_html( $value['engine_label'] ); ?></td>
-									<td><?php echo esc_html( $value['template_label'] ); ?></td>
+									<td style="padding: 0.25em 0;">
+										<label style="display: block;" for="<?php echo esc_attr( $input_id ); ?>">
+											<?php echo esc_html( $value['engine_label'] ); ?>
+										</label>
+									</td>
+									<td style="padding: 0.25em 0;">
+										<label style="display: block;" for="<?php echo esc_attr( $input_id ); ?>">
+											<?php echo esc_html( $value['template_label'] ); ?>
+										</label>
+									</td>
 								</tr>
 								<?php
 								$i--;
