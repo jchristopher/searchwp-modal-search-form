@@ -1,3 +1,9 @@
+<?php
+/**
+ * SearchWP Modal Form Name: Default
+ */
+?>
+
 <div class="modal micromodal-slide" id="searchwp-modal-default" aria-hidden="true">
 	<div class="modal__overlay" tabindex="-1" data-searchwp-modal-form-close>
 		<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="searchwp-modal-default-title">
