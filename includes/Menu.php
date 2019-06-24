@@ -71,6 +71,7 @@ class SearchWPModalFormMenu {
 		?>
 			<script type="text/javascript">
 				var _SEARCHWP_MODAL_FORMS = JSON.parse('<?php echo wp_json_encode( searchwp_modal_form_get_forms() ); ?>');
+
 				var searchwp_modal_forms_update_menu_items = function() {
 					let $menu = jQuery('#menu-to-edit');
 
@@ -92,11 +93,24 @@ class SearchWPModalFormMenu {
 						var $this = jQuery(this);
 
 						var hash = $this.find('.field-url input').val().substr(16);
-						var data = _SEARCHWP_MODAL_FORMS[ hash ];
 
+						// TODO: i18n.
+						var menu_item_note = '<span class="dashicons dashicons-info"></span> The configured SearchWP Modal Form cannot be loaded. Please remove this Menu Item and add a newly configured SearchWP Modal Form in its place.';
+
+						// If there's no matching hash, it's because an existing Menu Item
+						// is no longer valid. This can happen if a SearchWP-engine'd Menu
+						// Item was created, but SearchWP is no longer active.
+						if (_SEARCHWP_MODAL_FORMS.hasOwnProperty(hash)) {
+							var data = _SEARCHWP_MODAL_FORMS[ hash ];
+
+							// TODO: i18n.
+							menu_item_note = 'This is a SearchWP Modal Search Form.<br><strong>Engine:</strong> ' + data.engine_label  + '<br><strong>Template:</strong> ' + data.template_label;
+						}
+
+						// Set a proper title, customize content, and hide inapplicable elements.
 						$this.find('.item-type').text('Modal Search Form');
 						$this.find('.menu-item-settings')
-							.prepend('<p style="margin-bottom: 1em;" class="description searchwp-modal-search-form-note">This is a SearchWP Modal Search Form.<br><strong>Engine:</strong> ' + data.engine_label  + '<br><strong>Template:</strong> ' + data.template_label + '</p>')
+							.prepend('<p style="margin-bottom: 1em;" class="description searchwp-modal-search-form-note">' + menu_item_note + '</p>')
 							.children()
 							.not('.description, .field-move, .menu-item-actions, .searchwp-modal-search-form-note')
 							.hide();
