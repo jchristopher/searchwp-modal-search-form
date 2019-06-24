@@ -129,7 +129,7 @@ function searchwp_modal_form_get_engines() {
  * Generates a map of available modals which are defined by all combinations
  * of search engines and modal templates (which are file-based for the time being)
  */
-function searchwp_get_modal_forms() {
+function searchwp_modal_form_get_forms() {
 	$engines   = searchwp_modal_form_get_engines();
 	$templates = searchwp_modal_form_get_templates();
 	$forms     = array();
@@ -219,7 +219,7 @@ function searchwp_modal_form_get_template_hash( $engine, $file ) {
 /**
  * Extracts the modal name from an existing URI.
  */
-function searchwp_get_modal_name_from_uri( $uri ) {
+function searchwp_modal_form_get_name_from_uri( $uri ) {
 	$name = '#searchwp-modal-' === substr( $uri, 0, 16 ) ? substr( $uri, 16 ) : false;
 
 	return $name;
@@ -228,12 +228,12 @@ function searchwp_get_modal_name_from_uri( $uri ) {
 /**
  * Determine whether the provided menu item is one of ours.
  */
-function searchwp_get_modal_name_from_menu_item( $menu_item ) {
+function searchwp_modal_form_get_name_from_menu_item( $menu_item ) {
 	if ( 'custom' !== $menu_item->type ) {
 		return '';
 	}
 
-	$modal_name = searchwp_get_modal_name_from_uri( $menu_item->url );
+	$modal_name = searchwp_modal_form_get_name_from_uri( $menu_item->url );
 
 	if ( ! $modal_name ) {
 		return '';

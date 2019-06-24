@@ -30,7 +30,7 @@ class SearchWPModalFormMenu {
 		foreach ( $dom->getElementsByTagName( 'a' ) as $link ) {
 
 			// If there's no URI flag for a modal, skip this.
-			$modal_name = searchwp_get_modal_name_from_uri( $link->getAttribute( 'href' ) );
+			$modal_name = searchwp_modal_form_get_name_from_uri( $link->getAttribute( 'href' ) );
 			if ( ! $modal_name ) {
 				continue;
 			}
@@ -70,7 +70,7 @@ class SearchWPModalFormMenu {
 	public function customize_nav_items() {
 		?>
 			<script type="text/javascript">
-				var _SEARCHWP_MODAL_FORMS = JSON.parse('<?php echo wp_json_encode( searchwp_get_modal_forms() ); ?>');
+				var _SEARCHWP_MODAL_FORMS = JSON.parse('<?php echo wp_json_encode( searchwp_modal_form_get_forms() ); ?>');
 				var searchwp_modal_forms_update_menu_items = function() {
 					let $menu = jQuery('#menu-to-edit');
 
@@ -128,7 +128,7 @@ class SearchWPModalFormMenu {
 	 * Output Menu links as group in 'Add menu items' list
 	 */
 	public function nav_menu_links() {
-		$forms = searchwp_get_modal_forms();
+		$forms = searchwp_modal_form_get_forms();
 
 		?>
 		<div id="posttype-searchwp-modal-forms" class="posttypediv">
