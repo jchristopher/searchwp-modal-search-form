@@ -7,9 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SearchWPModalFormMenu {
 
 	public function __construct() {
-		add_action( 'load-nav-menus.php', array( $this, 'add_nav_menu_meta_boxes' ) );
-		add_action( 'admin_print_footer_scripts-nav-menus.php', array( $this, 'customize_nav_items' ) );
-		add_filter( 'wp_nav_menu', array( $this, 'wp_nav_menu' ), 10, 2 );
+		// We rely on DOMDocument when outputting Menu Items.
+		if ( class_exists( 'DOMDocument' ) ) {
+			add_action( 'load-nav-menus.php', array( $this, 'add_nav_menu_meta_boxes' ) );
+			add_action( 'admin_print_footer_scripts-nav-menus.php', array( $this, 'customize_nav_items' ) );
+			add_filter( 'wp_nav_menu', array( $this, 'wp_nav_menu' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -23,7 +26,6 @@ class SearchWPModalFormMenu {
 			return $nav_menu;
 		}
 
-		// TODO: We need to check for the existence of this class on init of this plugin as a whole.
 		$dom = new DOMDocument();
 		$dom->loadHTML( $nav_menu );
 
