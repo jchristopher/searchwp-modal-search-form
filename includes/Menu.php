@@ -198,32 +198,6 @@ class SearchWPModalFormMenu {
 				</ul>
 			</div>
 
-			<?php
-			/*
-			<div id="tabs-panel-searchwp-modal-forms" class="tabs-panel tabs-panel-active">
-				<ul id="searchwp-modal-forms-checklist" class="categorychecklist form-no-clear">
-					<?php
-					$i = -1;
-					foreach ( $forms as $key => $value ) :
-						?>
-						<li>
-							<label class="menu-item-title">
-								<input type="checkbox" class="menu-item-checkbox" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-object-id]" value="<?php echo esc_attr( $i ); ?>" /> <?php echo esc_html( $value ); ?>
-							</label>
-							<input type="hidden" class="menu-item-type" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-type]" value="custom" />
-							<input type="hidden" class="menu-item-title" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-title]" value="<?php echo esc_html( $value ); ?>" />
-							<input type="hidden" class="menu-item-url" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-url]" value="#searchwp-modal-<?php echo esc_attr( $key ); ?>" />
-							<input type="hidden" class="menu-item-classes" name="menu-item[<?php echo esc_attr( $i ); ?>][menu-item-classes]" />
-						</li>
-						<?php
-						$i--;
-					endforeach;
-					?>
-				</ul>
-			</div>
-			*/
-			?>
-
 			<p class="button-controls">
 				<span class="list-controls">
 					<a href="<?php echo esc_url( admin_url( 'nav-menus.php?page-tab=all&selectall=1#posttype-searchwp-modal-forms' ) ); ?>" class="select-all"><?php esc_html_e( 'Select all', 'searchwpmodalform' ); ?></a>
