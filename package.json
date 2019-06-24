@@ -2,11 +2,11 @@
   "name": "searchwp-modal-form",
   "main": "assets/src/main.js",
   "scripts": {
-    "watch": "concurrently \"npm run dev\" \"npm run build\"",
+    "watch": "concurrently \"npm run dev\" \"npm run blockdev\" \"npm run build\" \"npm run blockbuild\"",
     "dev": "cross-env NODE_ENV=development node assets/bundler-dev.js",
     "build": "cross-env NODE_ENV=production node assets/bundler-build.js",
-    "webpackdev": "cross-env webpack --watch",
-    "webpackbuild": "cross-env NODE_ENV=production webpack"
+    "blockdev": "cross-env NODE_ENV=development webpack --watch",
+    "blockbuild": "cross-env NODE_ENV=production webpack"
   },
   "author": "SearchWP, LLC",
   "license": "GPL-2.0",
