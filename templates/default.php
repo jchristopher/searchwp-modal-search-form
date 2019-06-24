@@ -4,6 +4,22 @@
  */
 ?>
 
+<?php
+/**
+ * This is the default markup for a SearchWP Modal Form. The structure is intended
+ * to allow for rapid customization, based on WordPress' get_search_form() to output
+ * the form markup.
+ *
+ * When creating your own custom modal search form templates, you should use a unique
+ * namespace, replacing all occurrences of `searchwp-modal-form-default` with your own.
+ *
+ * You can tell the SearchWP Modal Form to close when an element is clicked by adding
+ * the `data-searchwp-modal-form-close` attribute which has been added to both the
+ * overlay and the close button in the footer in the default markup.
+ *
+ * See notes above the <style/> block below the markup for further documentation.
+ */
+?>
 <div class="searchwp-modal-form-default">
 	<div class="searchwp-modal-form__overlay" tabindex="-1" data-searchwp-modal-form-close>
 		<div class="searchwp-modal-form__container" role="dialog" aria-modal="true">
@@ -17,7 +33,30 @@
 	</div>
 </div>
 
+<?php
+/**
+ * As with the default markup, the default CSS is designed with simplicity in mind
+ * allowing you to easily implement additional styles as you see fit.
+ *
+ * Ideally these styles will be moved into your theme's main stylesheet and/or loaded
+ * conditionally by you where applicable. The CSS will work as expected when output
+ * from within this template file, but it's not necessarily best practice.
+ *
+ * When creating your own custom modal search form templates, you should use a unique
+ * namespace, replacing all occurrences of `searchwp-modal-form-default` with your own.
+ *
+ * The styles are broken into three 'parts'
+ *   1) Overlay and container positioning
+ *   2) WordPress search form customization
+ *   3) Animation and display interaction setup
+ */
+?>
 <style type="text/css">
+	/* ************************************
+	 *
+	 * 1) Overlay and container positioning
+	 *
+	 ************************************ */
 	.searchwp-modal-form-default .searchwp-modal-form__overlay {
 		background: rgba(45, 45, 45 ,0.6);
 		position: fixed;
@@ -47,6 +86,14 @@
 		z-index: 9999998;
 	}
 
+
+
+
+	/* **************************************
+	 *
+	 * 2) WordPress search form customization
+	 *
+	 ************************************** */
 	.searchwp-modal-form-default .searchwp-modal-form__content .search-form {
 		display: flex;
 		align-items: center;
@@ -91,7 +138,14 @@
 		font-size: 2em;
 	}
 
-	/* Animation and display interaction setup */
+
+
+
+	/* ******************************************
+	 *
+	 * 3) Animation and display interaction setup
+	 *
+	 ***************************************** */
 	@keyframes searchwpModalFadeIn {
 		from { opacity: 0; }
 		to { opacity: 1; }
