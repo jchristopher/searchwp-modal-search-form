@@ -75,6 +75,7 @@ function searchwp_modal_form_get_templates() {
 	// Scan all files for required 'header' data.
 	foreach ( $template_files as $key => $template_file ) {
 		$data = searchwp_modal_form_get_template_data( $template_file );
+
 		if ( ! empty( $data['template_label'] ) ) {
 			$templates[] = array(
 				'file'  => $template_file,
