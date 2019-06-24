@@ -143,6 +143,7 @@ class SearchWP_Modal_Form {
 			)
 		);
 
+		// TODO: Implement i18n.
 		// if ( function_exists( 'wp_set_script_translations' ) ) {
 		// 	wp_set_script_translations( 'searchwp-modal-form-block', 'searchwpmodalform', SEARCHWP_MODAL_FORM_DIR . '/languages' );
 		// }
@@ -193,55 +194,3 @@ class SearchWP_Modal_Form {
 
 // Kickoff!
 new SearchWP_Modal_Form();
-
-
-if ( ! class_exists( 'SWP_Modal_Form_Updater' ) ) {
-	include_once dirname( __FILE__ ) . '/updater.php';
-}
-
-/**
- * Set up the updater
- *
- * @return bool|SWP_Modal_Form_Updater
- */
-function searchwp_modal_form_update_check() {
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-		return false;
-	}
-
-	// environment check
-	if ( ! defined( 'SEARCHWP_PREFIX' ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'SEARCHWP_EDD_STORE_URL' ) ) {
-		return false;
-	}
-
-	if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
-		return false;
-	}
-
-	// retrieve stored license key
-	$license_key = trim( get_option( SEARCHWP_PREFIX . 'license_key' ) );
-	$license_key = sanitize_text_field( $license_key );
-
-	// instantiate the updater to prep the environment
-	$searchwp_modal_form_updater = new SWP_Modal_Form_Updater(
-		SEARCHWP_EDD_STORE_URL,
-		__FILE__,
-		array(
-			'item_id'   => 184439,
-			'version'   => SEARCHWP_MODAL_FORM_VERSION,
-			'license'   => $license_key,
-			'item_name' => 'Modal Form',
-			'author'    => 'SearchWP, LLC',
-			'url'       => site_url(),
-		)
-	);
-
-	return $searchwp_modal_form_updater;
-}
-
-add_action( 'admin_init', 'searchwp_modal_form_update_check' );
