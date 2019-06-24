@@ -33,19 +33,27 @@ class SearchWPModalFormMenu {
 
 			// If there's no URI flag for a modal, skip this.
 			$modal_name = searchwp_modal_form_get_name_from_uri( $link->getAttribute( 'href' ) );
-			if ( ! $modal_name ) {
+
+			if ( empty( $modal_name ) ) {
 				continue;
 			}
 
-			// Attach our data attribute that acts as a trigger for this modal.
-			$link->setAttribute( 'data-searchwp-modal-trigger', esc_attr( 'searchwp-modal-' . $modal_name ) );
+			// Ensure that the modal name is valid.
+			$forms = searchwp_modal_form_get_forms();
+			if ( array_key_exists( $modal_name, $forms ) ) {
+				// Attach our data attribute that acts as a trigger for this modal.
+				$link->setAttribute( 'data-searchwp-modal-trigger', esc_attr( 'searchwp-modal-' . $modal_name ) );
 
-			// Enqueue modal template.
-			add_filter( 'searchwp_modal_form_queue', function( $forms ) use ( $modal_name ) {
-				$forms[] = $modal_name;
+				// Enqueue modal template.
+				add_filter( 'searchwp_modal_form_queue', function( $forms ) use ( $modal_name ) {
+					$forms[] = $modal_name;
 
-				return $forms;
-			} );
+					return $forms;
+				} );
+			} else {
+				$trigger_text = $link->nodeValue;
+				$link->nodeValue = $trigger_text . ' ' . __( '(SearchWP Modal Form error!)', 'searchwpmodalform' );
+			}
 		}
 
 		// We have a fully developed HTML document, but we only want the menu itself.
