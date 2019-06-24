@@ -2,6 +2,11 @@
 /**
  * SearchWP Modal Form Name: Default
  */
+
+// The above comment block is REQUIRED to register this modal search form
+// template with SearchWP Modal Form. This template file must also be placed
+// in an applicable folder as outlined in the documentation.
+// More info: https://searchwp.com/extensions/modal-form/#templates
 ?>
 
 <?php
@@ -18,6 +23,8 @@
  * overlay and the close button in the footer in the default markup.
  *
  * See notes above the <style/> block below the markup for further documentation.
+ *
+ * More info: https://searchwp.com/extensions/modal-form/#templates
  */
 ?>
 <div class="searchwp-modal-form-default">
@@ -49,6 +56,8 @@
  *   1) Overlay and container positioning
  *   2) WordPress search form customization
  *   3) Animation and display interaction setup
+ *
+ * More info: https://searchwp.com/extensions/modal-form/#templates
  */
 ?>
 <style type="text/css">
