@@ -6,6 +6,7 @@ Description: Lightweight and accessible search form
 Version: 0.1
 Author: SearchWP, LLC
 Author URI: https://searchwp.com/
+Text Domain: searchwpmodalform
 
 Copyright 2019 SearchWP, LLC
 
@@ -152,6 +153,7 @@ class SearchWP_Modal_Form {
 	 * Relevant includes.
 	 */
 	public function includes() {
+		include_once dirname( __FILE__ ) . '/includes/i18n.php';
 		include_once dirname( __FILE__ ) . '/includes/functions.php';
 		include_once dirname( __FILE__ ) . '/includes/Shortcode.php';
 		include_once dirname( __FILE__ ) . '/includes/Menu.php';

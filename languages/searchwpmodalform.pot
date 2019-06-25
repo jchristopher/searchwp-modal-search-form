@@ -1,0 +1,124 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: SearchWP Modal Form\n"
+"POT-Creation-Date: 2019-06-25 14:42-0400\n"
+"PO-Revision-Date: 2019-06-25 14:42-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: searchwp-modal-form.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#: assets/src/block.js:17
+msgid "Modal Form"
+msgstr ""
+
+#: assets/src/block.js:20
+msgid "Insert a modal search form"
+msgstr ""
+
+#: assets/src/block.js:22
+msgid "Get SearchWP"
+msgstr ""
+
+#: assets/src/block.js:31
+msgid "modal"
+msgstr ""
+
+#: assets/src/block.js:32
+msgid "search"
+msgstr ""
+
+#: assets/src/block.js:33
+msgid "overlay"
+msgstr ""
+
+#: assets/src/block.js:47 includes/Shortcode.php:17 includes/functions.php:11
+msgid "Search"
+msgstr ""
+
+#: assets/src/block.js:66
+msgid "Text"
+msgstr ""
+
+#: assets/src/block.js:74 includes/Menu.php:195
+msgid "Engine"
+msgstr ""
+
+#: assets/src/block.js:78 assets/src/block.js:92 includes/functions.php:142
+msgid "Default"
+msgstr ""
+
+#: assets/src/block.js:88 includes/Menu.php:196
+msgid "Template"
+msgstr ""
+
+#: assets/src/block.js:102
+msgid "Type"
+msgstr ""
+
+#: assets/src/block.js:106
+msgid "Link"
+msgstr ""
+
+#: assets/src/block.js:110
+msgid "Button"
+msgstr ""
+
+#: includes/Menu.php:75
+msgid "(SearchWP Modal Form error!)"
+msgstr ""
+
+#: includes/Menu.php:164
+msgid "SearchWP Modal Search Forms"
+msgstr ""
+
+#: includes/Menu.php:241
+msgid "Select all"
+msgstr ""
+
+#: includes/Menu.php:244
+msgid "Add to menu"
+msgstr ""
+
+#: includes/functions.php:117
+msgid "Native WordPress"
+msgstr ""
+
+#: includes/i18n.php:37
+msgid "Activate"
+msgstr ""
+
+#: searchwp-modal-form.php:145
+msgid "Template not found!"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "SearchWP Modal Form"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://searchwp.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Lightweight and accessible search form"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SearchWP, LLC"
+msgstr ""
