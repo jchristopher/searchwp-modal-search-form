@@ -12,7 +12,28 @@ class SearchWPModalFormMenu {
 			add_action( 'load-nav-menus.php', array( $this, 'add_nav_menu_meta_boxes' ) );
 			add_action( 'admin_print_footer_scripts-nav-menus.php', array( $this, 'customize_nav_items' ) );
 			add_filter( 'wp_nav_menu', array( $this, 'wp_nav_menu' ), 10, 2 );
+			add_filter( 'wp_setup_nav_menu_item', array( $this, 'check_menu_item' ) );
 		}
+	}
+
+	/**
+	 * Checks whether an existing Menu Item is valid.
+	 */
+	public function check_menu_item( $menu_item ) {
+		$modal_name = searchwp_modal_form_get_name_from_uri( $menu_item->url );
+
+		// If it's not a Modal Form Menu Item, return it.
+		if ( empty( $modal_name ) ) {
+			return $menu_item;
+		}
+
+		// Make sure that the Menu Item is still valid by verifying the modal name.
+		$forms = searchwp_modal_form_get_forms();
+		if ( ! array_key_exists( $modal_name, $forms ) ) {
+			$menu_item->_invalid = true;
+		}
+
+		return $menu_item;
 	}
 
 	/**
