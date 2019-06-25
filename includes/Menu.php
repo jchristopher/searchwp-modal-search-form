@@ -72,7 +72,7 @@ class SearchWPModalFormMenu {
 					return $forms;
 				} );
 			} else {
-				$link->nodeValue = $link->nodeValue . ' ' . __( '(SearchWP Modal Form error!)', 'searchwpmodalform' );
+				$link->nodeValue = $link->nodeValue . ' ' . __( '(SearchWP Modal Form error!)', 'searchwpmodalform' ); // phpcs:ignore
 			}
 		}
 

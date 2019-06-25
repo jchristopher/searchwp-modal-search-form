@@ -56,6 +56,10 @@ class SearchWP_Modal_Form {
 			add_action( 'wp_footer', array( $this, 'render_modals' ) );
 		});
 
+		// By default all generated modal forms will be using the Default SearchWP engine
+		// when applicable, but we're tagging each form with a reference to the modal
+		// configuration, and we can peek at that during runtime and swap out the engine
+		// configuration with the defined engine during the request.
 		add_filter( 'searchwp_engine_settings_default', array( $this, 'maybe_swap_engine' ), 99 );
 	}
 
@@ -63,11 +67,13 @@ class SearchWP_Modal_Form {
 	 * Callback to swap out SearchWP engine configuration during runtime when applicable.
 	 */
 	public function maybe_swap_engine( $engine_settings ) {
-		if ( ! isset( $_REQUEST[ $this->modal_template_input ] ) || empty( $_REQUEST[ $this->modal_template_input ] ) ) {
+		if (
+			! isset( $_REQUEST[ $this->modal_template_input ] ) // phpcs:ignore
+			|| empty( $_REQUEST[ $this->modal_template_input ] ) ) { // phpcs:ignore
 			return $engine_settings;
 		}
 
-		$modal_hash = $_REQUEST[ $this->modal_template_input ];
+		$modal_hash = $_REQUEST[ $this->modal_template_input ]; // phpcs:ignore
 		$forms      = searchwp_modal_form_get_forms();
 
 		if ( ! array_key_exists( $modal_hash, $forms ) ) {
@@ -92,7 +98,7 @@ class SearchWP_Modal_Form {
 			return;
 		}
 
-		$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) || ( isset( $_GET['script_debug'] ) ) ? '' : '.min';
+		$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) || ( isset( $_GET['script_debug'] ) ) ? '' : '.min'; // phpcs:ignore
 
 		// Output the main trigger handler and modal framework.
 		wp_enqueue_script(
@@ -119,10 +125,12 @@ class SearchWP_Modal_Form {
 					// Tag the form with a hidden input of the modal hash for future reference.
 					if ( false !== stripos( $modal_form_markup, '</form>' ) ) {
 						$form_tag = '<input type="hidden" name="' . $this->modal_template_input . '" value="' . $modal_hash . '" />';
+
 						$modal_form_markup = str_ireplace( '</form>', $form_tag . '</form>', $modal_form_markup );
 					}
 
-					echo $modal_form_markup;
+					// This markup is directly from the template file which is responsible for handling user input.
+					echo $modal_form_markup; // phpcs:ignore
 				} else {
 					echo esc_html_e( 'Template not found!', 'searchwpmodalform' );
 				}
@@ -199,7 +207,7 @@ class SearchWP_Modal_Form {
 		$args = array_merge(
 			$attributes,
 			array(
-				'post_id' => empty( $_GET['post_id'] ) ? null : abs( $_GET['post_id'] ),
+				'post_id' => empty( $_GET['post_id'] ) ? null : abs( $_GET['post_id'] ), // phpcs:ignore
 			)
 		);
 
