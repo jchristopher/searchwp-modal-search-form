@@ -2,6 +2,14 @@
 
 Use SearchWP Modal Search Form to easily integrate a modal search form into your WordPress website! SearchWP Modal Search Form **does not require [SearchWP](https://searchwp.com/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)** but it will utilize SearchWP if it's installed and activated! :thumbsup:
 
+### What makes it better than the others?
+
+The philosophy behind SearchWP Modal Search Form is to make it easy to implement modal search forms but perhaps even more important make it a great developer experience.
+
+SearchWP Modal Search Form directly integrates with WordPress in the way you use it, and the default modal form theme builds upon the styles put in place by your active theme, making the overhead as small as possible. There's a full template loader built in as well, allowing you to _fully customize_ your SearchWP Modal Search Form with minimal hassle.
+
+Check out the [default template](templates/default.php) for an example of how easy it is to customize :nerd_face:
+
 ## Installation and Activation
 
 SearchWP Modal Search Form is installed like all WordPress plugins:
