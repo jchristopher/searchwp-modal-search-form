@@ -111,34 +111,41 @@ class SearchWP_Modal_Form {
 
 		// Output all enqueued modal templates that are used on this page load.
 		foreach ( array_unique( $enqueued_modals ) as $modal_hash ) {
-			$modal = searchwp_modal_form_reverse_hash_lookup( $modal_hash );
 			do_action( 'searchwp_modal_form_template_start', array( 'modal' => $modal_hash ) );
-			?>
-			<div class="searchwp-modal-form" id="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>" aria-hidden="true">
-				<?php
-				if ( file_exists( $modal['template']['file'] ) ) {
-					ob_start();
-					include $modal['template']['file'];
-					$modal_form_markup = ob_get_contents();
-					ob_end_clean();
-
-					// Tag the form with a hidden input of the modal hash for future reference.
-					if ( false !== stripos( $modal_form_markup, '</form>' ) ) {
-						$form_tag = '<input type="hidden" name="' . $this->modal_template_input . '" value="' . $modal_hash . '" />';
-
-						$modal_form_markup = str_ireplace( '</form>', $form_tag . '</form>', $modal_form_markup );
-					}
-
-					// This markup is directly from the template file which is responsible for handling user input.
-					echo $modal_form_markup; // phpcs:ignore
-				} else {
-					echo esc_html_e( 'Template not found!', 'searchwpmodalform' );
-				}
-				?>
-			</div>
-			<?php
+			$this->render_modal( $modal_hash );
 			do_action( 'searchwp_modal_form_template_end', array( 'modal' => $modal_hash ) );
 		}
+	}
+
+	/**
+	 * Output the markup for a submitted modal hash.
+	 */
+	private function render_modal( $modal_hash ) {
+		$modal = searchwp_modal_form_reverse_hash_lookup( $modal_hash );
+		?>
+		<div class="searchwp-modal-form" id="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>" aria-hidden="true">
+			<?php
+			if ( file_exists( $modal['template']['file'] ) ) {
+				ob_start();
+				include $modal['template']['file'];
+				$modal_form_markup = ob_get_contents();
+				ob_end_clean();
+
+				// Tag the form with a hidden input of the modal hash for future reference.
+				if ( false !== stripos( $modal_form_markup, '</form>' ) ) {
+					$form_tag = '<input type="hidden" name="' . $this->modal_template_input . '" value="' . $modal_hash . '" />';
+
+					$modal_form_markup = str_ireplace( '</form>', $form_tag . '</form>', $modal_form_markup );
+				}
+
+				// This markup is directly from the template file which is responsible for handling user input.
+				echo $modal_form_markup; // phpcs:ignore
+			} else {
+				echo esc_html_e( 'Template not found!', 'searchwpmodalform' );
+			}
+			?>
+		</div>
+		<?php
 	}
 
 	/**
