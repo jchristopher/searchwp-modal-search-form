@@ -30,7 +30,7 @@
 <div class="searchwp-modal-form-default">
 	<div class="searchwp-modal-form__overlay" tabindex="-1" data-searchwp-modal-form-close>
 		<div class="searchwp-modal-form__container" role="dialog" aria-modal="true">
-			<main class="searchwp-modal-form__content" id="searchwp-modal-form-default-content">
+			<main class="searchwp-modal-form__content">
 				<?php echo get_search_form(); ?>
 			</main>
 			<footer class="searchwp-modal-form__footer">
