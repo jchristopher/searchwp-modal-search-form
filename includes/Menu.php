@@ -72,14 +72,13 @@ class SearchWPModalFormMenu {
 					return $forms;
 				} );
 			} else {
-				$trigger_text = $link->nodeValue;
-				$link->nodeValue = $trigger_text . ' ' . __( '(SearchWP Modal Form error!)', 'searchwpmodalform' );
+				$link->nodeValue = $link->nodeValue . ' ' . __( '(SearchWP Modal Form error!)', 'searchwpmodalform' );
 			}
 		}
 
 		// We have a fully developed HTML document, but we only want the menu itself.
 		$full_html = $dom->saveHTML();
-		$nav_menu = substr(
+		$nav_menu  = substr(
 			$full_html,
 			strpos( $full_html, '<body>' ) + 6,
 			strpos( $full_html, '</body>' )
