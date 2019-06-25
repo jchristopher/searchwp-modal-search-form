@@ -104,12 +104,13 @@ class SearchWPModalFormMenu {
 
 						var hash = $this.find('.field-url input').val().substr(16);
 
-						// TODO: i18n.
-						var menu_item_note = '<span class="dashicons dashicons-info"></span> The configured SearchWP Modal Form cannot be loaded. Please remove this Menu Item and add a newly configured SearchWP Modal Form in its place.';
-
 						// If there's no matching hash, it's because an existing Menu Item
 						// is no longer valid. This can happen if a SearchWP-engine'd Menu
 						// Item was created, but SearchWP is no longer active.
+						// TODO: i18n.
+						var menu_item_note = '<span class="dashicons dashicons-info"></span> The configured SearchWP Modal Form cannot be loaded. Please remove this Menu Item and add a newly configured SearchWP Modal Form in its place.';
+
+						// If there IS a matching hash, we can update the Menu Item accordingly.
 						if (_SEARCHWP_MODAL_FORMS.hasOwnProperty(hash)) {
 							var data = _SEARCHWP_MODAL_FORMS[ hash ];
 
