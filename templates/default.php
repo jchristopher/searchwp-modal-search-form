@@ -111,7 +111,7 @@
 
 	.searchwp-modal-form-default .searchwp-modal-form__content .search-form label {
 		flex: 1;
-		/*padding-right: 0.75em;*/ /* This may cause issues... */
+		padding-right: 0.75em; /* This may cause issues depending on your theme styles. */
 
 		/* Some common resets */
 		float: none;
