@@ -66,11 +66,11 @@ function searchwp_modal_form_get_templates() {
 	$template_dir = apply_filters( 'searchwp_modal_form_template_dir', 'searchwp-modal-form' );
 
 	// Scan all applicable directories for template files.
-	$template_files = array_merge(
+	$template_files = array_unique( array_merge(
 		glob( trailingslashit( SEARCHWP_MODAL_FORM_DIR ) . 'templates/*.[pP][hH][pP]' ), // Plugin.
 		glob( trailingslashit( get_stylesheet_directory() ) . trailingslashit( $template_dir ) . '*.[pP][hH][pP]' ), // Child Theme.
 		glob( trailingslashit( get_template_directory() ) . trailingslashit( $template_dir ) . '*.[pP][hH][pP]' ) // Parent Theme.
-	);
+	) );
 
 	// Scan all files for required 'header' data.
 	foreach ( $template_files as $key => $template_file ) {
