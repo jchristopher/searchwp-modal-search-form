@@ -11,7 +11,7 @@ Quickly and easily insert modal search forms into Menus, as a Block, or directly
 == Description ==
 Use SearchWP Modal Search Form to easily integrate an accessible, lightweight modal search form into your WordPress website! SearchWP Modal Search Form **does not require [SearchWP](https://searchwp.com/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)** but it will utilize SearchWP if it's installed and activated! 👍
 
-Contributions are welcome on GitHub! [https://github.com/jchristopher/searchwp-modal-form/](https://github.com/jchristopher/searchwp-modal-form/)
+Contributions are welcome on GitHub! [https://github.com/jchristopher/searchwp-modal-search-form/](https://github.com/jchristopher/searchwp-modal-search-form/)
 
 Beyond the information made available in this `README` there is [full documentation](https://searchwp.com/extensions/modal-form/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform) available as well.
 
@@ -21,7 +21,7 @@ The philosophy behind SearchWP Modal Search Form is to make it easy to implement
 
 SearchWP Modal Search Form directly integrates with WordPress in the way you use it, and the default modal form theme builds upon the styles put in place by your active theme, making the overhead as small as possible. There's a full template loader built in as well, allowing you to _fully customize_ your SearchWP Modal Search Form with minimal hassle.
 
-Check out the [default template](https://github.com/jchristopher/searchwp-modal-form/blob/master/templates/default.php) for an example of how easy it is to customize 🤓
+Check out the [default template](https://github.com/jchristopher/searchwp-modal-search-form/blob/master/templates/default.php) for an example of how easy it is to customize 🤓
 
 == Adding modal forms to your site ==
 
@@ -40,7 +40,7 @@ The most straightforward way to create a custom template is as follows:
 
 1. Create a folder named `searchwp-modal-form` within your theme
 1. Create a file within that folder named `template.php` (or any name ending in `.php`)
-1. Copy the contents of the [default template](https://github.com/jchristopher/searchwp-modal-form/blob/master/templates/default.php) into that file
+1. Copy the contents of the [default template](https://github.com/jchristopher/searchwp-modal-search-form/blob/master/templates/default.php) into that file
 1. Customize the `SearchWP Modal Form Name` value in the header comment block
 1. Make any other customizations you\'d like to the markup/style, paying attention to the documentation
 
