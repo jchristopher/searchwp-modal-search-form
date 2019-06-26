@@ -134,7 +134,7 @@ class SearchWP_Modal_Form {
 
 				// Tag the form with a hidden input of the modal hash for future reference.
 				if ( false !== stripos( $modal_form_markup, '</form>' ) ) {
-					$form_tag = '<input type="hidden" name="' . esc_att( $this->modal_template_input ) . '" value="' . esc_attr( $modal_hash ) . '" />';
+					$form_tag = '<input type="hidden" name="' . esc_attr( $this->modal_template_input ) . '" value="' . esc_attr( $modal_hash ) . '" />';
 
 					$modal_form_markup = str_ireplace( '</form>', $form_tag . '</form>', $modal_form_markup );
 				}
