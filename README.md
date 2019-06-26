@@ -1,14 +1,14 @@
 # SearchWP Modal Search Form
 
-Use SearchWP Modal Search Form to easily integrate a modal search form into your WordPress website! SearchWP Modal Search Form **does not require [SearchWP](https://searchwp.com/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)** but it will utilize SearchWP if it's installed and activated! :thumbsup:
+Use SearchWP Modal Search Form to easily integrate an accessible, lightweight modal search form into your WordPress website! SearchWP Modal Search Form **does not require [SearchWP](https://searchwp.com/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)** but it will utilize SearchWP if it's installed and activated! :thumbsup:
 
 ![Examples of SearchWP Modal Search Form](assets/searchwp-modal-form-examples.gif?raw=true "Examples of SearchWP Modal Search Form")
 
 Beyond the information made available in this `README` there is [full documentation](https://searchwp.com/extensions/modal-form/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform) available as well.
 
-### What makes it better than other modals?
+### What makes it different than other modals?
 
-The philosophy behind SearchWP Modal Search Form is to make it easy to implement modal search forms but perhaps even more important make it a great developer experience.
+The philosophy behind SearchWP Modal Search Form is to make it easy to implement accessible and lightweight modal search forms but perhaps even more important make it a great developer (and user) experience.
 
 SearchWP Modal Search Form directly integrates with WordPress in the way you use it, and the default modal form theme builds upon the styles put in place by your active theme, making the overhead as small as possible. There's a full template loader built in as well, allowing you to _fully customize_ your SearchWP Modal Search Form with minimal hassle.
 
@@ -35,7 +35,7 @@ SearchWP Modal Search Form makes it easy to implement modal search forms anywher
 
 ## Template Customization
 
-SearchWP Modal Search Form integrates a proper template loader, allowing you to _fully customize_ your modal search form.
+SearchWP Modal Search Form integrates a proper template loader for displaying search forms in any number of templates, allowing you to _fully customize_ what the modal looks like per template.
 
 The most straightforward way to create a custom template is as follows:
 
@@ -46,3 +46,32 @@ The most straightforward way to create a custom template is as follows:
 1. Make any other customizations you'd like to the markup/style, paying attention to the documentation
 
 Please review the [full template documentation](https://searchwp.com/extensions/modal-form/#templates?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform) for more detailed information.
+
+### Developer notes
+
+Please see the [hooks documentation](https://searchwp.com/extensions/modal-form/#hooks?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform) to read more about available hooks.
+
+There is a build process for all JavaScript bundles contained within a single command:
+
+`npm run watch`
+
+This will execute four concurrent processes that watch for file changes and subsequently generate the following:
+
+1. Production version of the SearchWP Modal Search Form bundle
+1. Development version of the SearchWP Modal Search Form bundle
+1. Production version of the SearchWP Modal Search Form block
+1. Development version of the SearchWP Modal Search Form block
+
+You can run each process individually if you'd prefer:
+
+```# Build development version of SearchWP Modal Search Form bundle
+npm run dev
+
+# Build production version of SearchWP Modal Search Form bundle
+npm run build
+
+# Build development version of SearchWP Modal Search Form block
+npm run blockdev
+
+# Build production version of SearchWP Modal Search Form block
+npm run blockbuild```
