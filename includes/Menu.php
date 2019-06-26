@@ -48,6 +48,7 @@ class SearchWPModalFormMenu {
 		}
 
 		$dom = new DOMDocument();
+		libxml_use_internal_errors( true );
 		$dom->loadHTML( $nav_menu );
 
 		foreach ( $dom->getElementsByTagName( 'a' ) as $link ) {
