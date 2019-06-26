@@ -64,7 +64,8 @@ This will execute four concurrent processes that watch for file changes and subs
 
 You can run each process individually if you'd prefer:
 
-```# Build development version of SearchWP Modal Search Form bundle
+```
+# Build development version of SearchWP Modal Search Form bundle
 npm run dev
 
 # Build production version of SearchWP Modal Search Form bundle
@@ -74,4 +75,5 @@ npm run build
 npm run blockdev
 
 # Build production version of SearchWP Modal Search Form block
-npm run blockbuild```
+npm run blockbuild
+```
