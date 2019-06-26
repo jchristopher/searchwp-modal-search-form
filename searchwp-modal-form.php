@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: SearchWP Modal Form
+Plugin Name: SearchWP Modal Search Form
 Plugin URI: https://searchwp.com/
 Description: Lightweight and accessible search form
 Version: 0.1

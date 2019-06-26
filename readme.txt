@@ -1,4 +1,4 @@
-=== SearchWP Modal Form ===
+=== SearchWP Modal Search Form ===
 Contributors: jchristopher
 Tags: search, modal, form, searchform, SearchWP
 Requires at least: 5.0
