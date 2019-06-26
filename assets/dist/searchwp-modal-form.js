@@ -395,10 +395,14 @@ _micromodal.default.init({
   });
   closers.forEach(function (closer) {
     closer.addEventListener("click", function (event) {
-      event.preventDefault();
+      if (event.target.hasAttribute("data-searchwp-modal-form-close")) {
+        event.preventDefault();
 
-      _micromodal.default.close(showing);
-    }, false);
+        _micromodal.default.close(showing);
+
+        showing = "";
+      }
+    }, true);
   });
 });
 },{"micromodal":"../../node_modules/micromodal/dist/micromodal.es.js","domready":"../../node_modules/domready/ready.js"}]},{},["searchwp-modal-form.js"], null)

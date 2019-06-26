@@ -33,10 +33,13 @@ domready(function() {
     closer.addEventListener(
       "click",
       function(event) {
-        event.preventDefault();
-        MicroModal.close(showing);
+        if (event.target.hasAttribute("data-searchwp-modal-form-close")) {
+          event.preventDefault();
+          MicroModal.close(showing);
+          showing = "";
+        }
       },
-      false
+      true
     );
   });
 });
