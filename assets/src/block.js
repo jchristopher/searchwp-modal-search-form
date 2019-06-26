@@ -18,7 +18,10 @@ registerBlockType("searchwp/modal-form", {
   description: (
     <Fragment>
       <p>{__("Insert a modal search form", "searchwpmodalform")}</p>
-      <ExternalLink href="https://searchwp.com/">
+      <ExternalLink
+        className={_SEARCHWP_MODAL_FORM_DATA.searchwp ? "hidden" : ""}
+        href="https://searchwp.com/"
+      >
         {__("Get SearchWP", "searchwpmodalform")}
       </ExternalLink>
     </Fragment>
@@ -71,28 +74,9 @@ registerBlockType("searchwp/modal-form", {
             />
 
             <SelectControl
-              label={__("Engine", "searchwpmodalform")}
-              value={`${engine}`}
-              options={[
-                {
-                  label: __("Default", "searchwpmodalform"),
-                  value: "default"
-                }
-              ]}
-              onChange={value => {
-                setAttributes({ engine: value });
-              }}
-            />
-
-            <SelectControl
               label={__("Template", "searchwpmodalform")}
               value={`${template}`}
-              options={[
-                {
-                  label: __("Default", "searchwpmodalform"),
-                  value: "Default"
-                }
-              ]}
+              options={_SEARCHWP_MODAL_FORM_DATA.templates}
               onChange={value => {
                 setAttributes({ template: value });
               }}

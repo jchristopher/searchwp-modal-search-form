@@ -183,6 +183,31 @@ class SearchWP_Modal_Form {
 			true
 		);
 
+		// Define our Template SelectControl data.
+		$templates = array_values( array_map(
+			function( $template ) {
+				$template_label = $template['template_label'];
+
+				if ( function_exists( 'SWP' ) ) {
+					$template_label = $template['engine_label'] . ' Engine - ' . $template_label;
+				}
+				return array(
+					'label' => $template_label,
+					'value' => $template['name'],
+				);
+			},
+			searchwp_modal_form_get_forms()
+		) );
+
+		wp_localize_script(
+			'searchwp-modal-form-block',
+			'_SEARCHWP_MODAL_FORM_DATA',
+			array(
+				'templates' => $templates,
+				'searchwp'  => function_exists( 'SWP' ),
+			)
+		);
+
 		register_block_type(
 			'searchwp/modal-form',
 			array(
