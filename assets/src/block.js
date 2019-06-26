@@ -20,9 +20,9 @@ registerBlockType("searchwp/modal-form", {
       <p>{__("Insert a modal search form", "searchwpmodalform")}</p>
       <ExternalLink
         className={_SEARCHWP_MODAL_FORM_DATA.searchwp ? "hidden" : ""}
-        href="https://searchwp.com/"
+        href="https://searchwp.com/?utm_source=wordpressorg&amp;utm_medium=link&amp;utm_campaign=modalform&amp;utm_content=menuitem"
       >
-        {__("Get SearchWP", "searchwpmodalform")}
+        {__("Improve your search with SearchWP", "searchwpmodalform")}
       </ExternalLink>
     </Fragment>
   ),
