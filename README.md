@@ -32,6 +32,7 @@ SearchWP Modal Search Form makes it easy to implement modal search forms anywher
 1. As a [Menu Item](https://searchwp.com/extensions/modal-form/#menu-item?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)
 1. Using a [Shortcode](https://searchwp.com/extensions/modal-form/#shortcode?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)
 1. As a [Gutenberg Block](https://searchwp.com/extensions/modal-form/#block?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)
+1. Within your template(s) [programmatically](https://searchwp.com/extensions/modal-form/#code?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform)
 
 ## Template Customization
 
