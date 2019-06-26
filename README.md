@@ -64,7 +64,7 @@ This will execute four concurrent processes that watch for file changes and subs
 
 You can run each process individually if you'd prefer:
 
-```
+```sh
 # Build development version of SearchWP Modal Search Form bundle
 npm run dev
 
