@@ -46,11 +46,20 @@ function searchwp_modal_form_trigger( $args ) {
 	ob_start();
 	if ( 'button' === $args['type'] ) {
 		?>
-		<button class="button" data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></button>
+		<button
+			class="<?php echo esc_attr( 'button ' . $args['class'] ); ?>"
+			data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>">
+			<?php echo esc_html( $args['text'] ); ?>
+		</button>
 		<?php
 	} else {
 		?>
-		<a href="<?php echo esc_attr( '#searchwp-modal-' . $modal_hash ); ?>" data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>"><?php echo esc_html( $args['text'] ); ?></a>
+		<a
+			class="<?php echo esc_attr( $args['class'] ); ?>"
+			href="<?php echo esc_attr( '#searchwp-modal-' . $modal_hash ); ?>"
+			data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>">
+			<?php echo esc_html( $args['text'] ); ?>
+		</a>
 		<?php
 	}
 
@@ -61,7 +70,12 @@ function searchwp_modal_form_trigger( $args ) {
 			$output,
 			array(
 				'a' => array(
+					'class'                       => array(),
 					'href'                        => array(),
+					'data-searchwp-modal-trigger' => array(),
+				),
+				'button' => array(
+					'class'                       => array(),
 					'data-searchwp-modal-trigger' => array(),
 				),
 			)
