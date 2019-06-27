@@ -10,10 +10,23 @@ function searchwp_modal_form_trigger( $args ) {
 		'template' => 'Default',
 		'text'     => __( 'Search', 'searchwpmodalform' ),
 		'type'     => 'link',
+		'class'    => array(),
 		'echo'     => true,
 	);
 
 	$args = wp_parse_args( $args, $defaults );
+
+	if ( ! is_array( $args['class'] ) ) {
+		$args['class'] = (array) $args['class'];
+	}
+
+	$args['class'] = implode(
+		' ',
+		array_merge(
+			array( 'searchwp-modal-form-trigger-el' ),
+			$args['class']
+		)
+	);
 
 	if ( function_exists( 'SWP' ) ) {
 		$engine = SWP()->is_valid_engine( $args['engine'] ) ? $args['engine'] : 'default';

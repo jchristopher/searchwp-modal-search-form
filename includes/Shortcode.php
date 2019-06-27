@@ -16,6 +16,7 @@ class SearchWPModalFormShortcode {
 			'template' => 'Default',
 			'text'     => __( 'Search', 'searchwpmodalform' ),
 			'type'     => 'link',
+			'class'    => array(),
 		), $atts );
 
 		$args['echo'] = true;
