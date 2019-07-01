@@ -219,7 +219,7 @@ class SearchWP_Modal_Form {
 					'text'     => array( 'type' => 'string' ),
 					'type'     => array( 'type' => 'string' ),
 				),
-				'render_callback' => array( $this, 'render_block_modal_form' ),
+				'render_callback' => array( get_called_class(), 'render_block_modal_form' ),
 			)
 		);
 
