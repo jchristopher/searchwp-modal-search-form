@@ -387,7 +387,7 @@ _micromodal.default.init({
   triggers.forEach(function (trigger) {
     trigger.addEventListener("click", function (event) {
       event.preventDefault();
-      var modal = event.target.getAttribute("data-searchwp-modal-trigger");
+      var modal = event.currentTarget.getAttribute("data-searchwp-modal-trigger");
       showing = modal;
 
       _micromodal.default.show(modal);
@@ -395,7 +395,7 @@ _micromodal.default.init({
   });
   closers.forEach(function (closer) {
     closer.addEventListener("click", function (event) {
-      if (event.target.hasAttribute("data-searchwp-modal-form-close")) {
+      if (event.currentTarget.hasAttribute("data-searchwp-modal-form-close")) {
         event.preventDefault();
 
         _micromodal.default.close(showing);
