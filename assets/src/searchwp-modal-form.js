@@ -21,7 +21,9 @@ domready(function() {
       "click",
       function(event) {
         event.preventDefault();
-        let modal = event.target.getAttribute("data-searchwp-modal-trigger");
+        let modal = event.currentTarget.getAttribute(
+          "data-searchwp-modal-trigger"
+        );
         showing = modal;
         MicroModal.show(modal);
       },
@@ -33,7 +35,9 @@ domready(function() {
     closer.addEventListener(
       "click",
       function(event) {
-        if (event.target.hasAttribute("data-searchwp-modal-form-close")) {
+        if (
+          event.currentTarget.hasAttribute("data-searchwp-modal-form-close")
+        ) {
           event.preventDefault();
           MicroModal.close(showing);
           showing = "";
