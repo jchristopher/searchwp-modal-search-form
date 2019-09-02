@@ -36,7 +36,7 @@ domready(function() {
       "click",
       function(event) {
         if (
-          event.currentTarget.hasAttribute("data-searchwp-modal-form-close")
+          event.target.hasAttribute("data-searchwp-modal-form-close")
         ) {
           event.preventDefault();
           MicroModal.close(showing);
