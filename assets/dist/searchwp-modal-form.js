@@ -395,7 +395,7 @@ _micromodal.default.init({
   });
   closers.forEach(function (closer) {
     closer.addEventListener("click", function (event) {
-      if (event.currentTarget.hasAttribute("data-searchwp-modal-form-close")) {
+      if (event.target.hasAttribute("data-searchwp-modal-form-close")) {
         event.preventDefault();
 
         _micromodal.default.close(showing);
