@@ -504,7 +504,7 @@ _micromodal.default.init({
       _micromodal.default.show(modal, {
         onShow: function onShow(obj) {
           if (window.jQuery) {
-            jQuery('body').trigger('onShow', {
+            jQuery('body').trigger('searchwpModalOnShow', {
               modal: modal,
               el: jQuery('#' + modal),
               obj: obj
@@ -513,7 +513,7 @@ _micromodal.default.init({
         },
         onClose: function onClose(obj) {
           if (window.jQuery) {
-            jQuery('body').trigger('onClose', {
+            jQuery('body').trigger('searchwpModalOnClose', {
               modal: modal,
               el: jQuery('#' + modal),
               obj: obj
