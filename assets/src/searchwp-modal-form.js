@@ -25,7 +25,26 @@ domready(function() {
           "data-searchwp-modal-trigger"
         );
         showing = modal;
-        MicroModal.show(modal);
+        MicroModal.show(modal, {
+          onShow: function(obj) {
+            if (window.jQuery) {
+              jQuery('body').trigger('onShow', {
+                modal: modal,
+                el: jQuery('#' + modal),
+                obj: obj
+              });
+            }
+          },
+          onClose: function(obj) {
+            if (window.jQuery) {
+              jQuery('body').trigger('onClose', {
+                modal: modal,
+                el: jQuery('#' + modal),
+                obj: obj
+              });
+            }
+          }
+        });
       },
       false
     );
