@@ -2,9 +2,9 @@
 Contributors: jchristopher
 Tags: search, modal, form, searchform, SearchWP
 Requires at least: 5.0
-Tested up to: 5.2.2
+Tested up to: 5.3.2
 Requires PHP: 7.0
-Stable tag: 0.2.3
+Stable tag: 0.3
 
 Quickly and easily insert modal search forms into Menus, as a Block, or directly within theme templates.
 
@@ -43,6 +43,19 @@ The most straightforward way to create a custom template is as follows:
 1. Copy the contents of the [default template](https://github.com/jchristopher/searchwp-modal-search-form/blob/master/templates/default.php) into that file
 1. Customize the `SearchWP Modal Form Name` value in the header comment block
 1. Make any other customizations you\'d like to the markup/style, paying attention to the documentation
+
+There are (jQuery) events that fire when modals are opened and closed. jQuery *is not* a dependency, but if jQuery is loaded the events will fire.
+
+`// Add a callback when a modal is opened:
+jQuery('body').on('searchwpModalOnShow', function(e) {
+	// Focus an input in the template.
+	e.el.find('input').focus();
+});
+
+// Add a callback when a modal is closed:
+jQuery('body').on('searchwpModalOnClose', function(e) {
+	alert('Modal closed!');
+});`
 
 Please review the [full template documentation](https://searchwp.com/extensions/modal-form/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform#templates) for more detailed information.
 
@@ -83,6 +96,10 @@ Please review the [full template documentation](https://searchwp.com/extensions/
 5. Insert modal triggers as Gutenberg Blocks
 
 == Changelog ==
+*0.3*
+- Updates dependencies
+- Adds jQuery events when modals open and close
+
 *0.2.3*
 - Fixes regression introduced in 0.2.2 that prevented search with Enter key
 
