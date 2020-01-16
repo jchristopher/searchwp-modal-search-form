@@ -28,7 +28,7 @@ domready(function() {
         MicroModal.show(modal, {
           onShow: function(obj) {
             if (window.jQuery) {
-              jQuery('body').trigger('onShow', {
+              jQuery('body').trigger('searchwpModalOnShow', {
                 modal: modal,
                 el: jQuery('#' + modal),
                 obj: obj
@@ -37,7 +37,7 @@ domready(function() {
           },
           onClose: function(obj) {
             if (window.jQuery) {
-              jQuery('body').trigger('onClose', {
+              jQuery('body').trigger('searchwpModalOnClose', {
                 modal: modal,
                 el: jQuery('#' + modal),
                 obj: obj
