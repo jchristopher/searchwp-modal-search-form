@@ -48,7 +48,8 @@ The most straightforward way to create a custom template is as follows:
 
 There are (jQuery) events that fire when modals are opened and closed. jQuery *is not* a dependency, but if jQuery is loaded the events will fire.
 
-`// Add a callback when a modal is opened:
+```javascript
+// Add a callback when a modal is opened:
 jQuery('body').on('searchwpModalOnShow', function(e) {
 	// Focus an input in the template.
 	e.el.find('input').focus();
@@ -57,7 +58,8 @@ jQuery('body').on('searchwpModalOnShow', function(e) {
 // Add a callback when a modal is closed:
 jQuery('body').on('searchwpModalOnClose', function(e) {
 	alert('Modal closed!');
-});`
+});
+```
 
 Please review the [full template documentation](https://searchwp.com/extensions/modal-form/?utm_source=wordpressorg&utm_medium=link&utm_content=readme&utm_campaign=modalform#templates) for more detailed information.
 
