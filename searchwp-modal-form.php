@@ -168,12 +168,12 @@ class SearchWP_Modal_Form {
 			return;
 		}
 
-		wp_register_style(
-			'searchwp-modal-form-block',
-			plugin_dir_url( __FILE__ ) . 'assets/dist/block.build.css',
-			array(),
-			SEARCHWP_MODAL_FORM_VERSION
-		);
+		// wp_register_style(
+		// 	'searchwp-modal-form-block',
+		// 	plugin_dir_url( __FILE__ ) . 'assets/dist/block.build.css',
+		// 	array(),
+		// 	SEARCHWP_MODAL_FORM_VERSION
+		// );
 
 		wp_register_script(
 			'searchwp-modal-form-block',
