@@ -61,6 +61,7 @@ class SearchWP_Modal_Form {
 		// when applicable, but we're tagging each form with a reference to the modal
 		// configuration, and we can peek at that during runtime and swap out the engine
 		// configuration with the defined engine during the request.
+		add_filter( 'searchwp\query\args', array( $this, 'maybe_swap_engine' ), 99 );
 		add_filter( 'searchwp_engine_settings_default', array( $this, 'maybe_swap_engine' ), 99 );
 	}
 
@@ -81,10 +82,21 @@ class SearchWP_Modal_Form {
 			return $engine_settings;
 		}
 
-		$engine  = $forms[ $modal_hash ]['engine_name'];
-		$engines = SWP()->settings['engines'];
+		$engine = $forms[ $modal_hash ]['engine_name'];
 
-		return array_key_exists( $engine, $engines ) ? $engines[ $engine ] : $engine_settings;
+		// SearchWP 3.x compat.
+		if ( function_exists( 'SWP' ) ) {
+			$engines = SWP()->settings['engines'];
+			return array_key_exists( $engine, $engines ) ? $engines[ $engine ] : $engine_settings;
+		} else {
+			$new_engine = \SearchWP\Settings::get_engine_settings( $engine );
+
+			if ( $new_engine ) {
+				$engine_settings['engine'] = $engine;
+			}
+
+			return $engine_settings;
+		}
 	}
 
 	/**

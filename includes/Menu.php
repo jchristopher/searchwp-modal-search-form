@@ -179,7 +179,7 @@ class SearchWPModalFormMenu {
 		?>
 		<div id="posttype-searchwp-modal-forms" class="posttypediv">
 			<div id="tabs-panel-searchwp-modal-forms" class="tabs-panel-active">
-				<?php if ( ! function_exists( 'SWP' ) && apply_filters( 'searchwp_modal_form_upgrade_link', true ) ) : ?>
+				<?php if ( ! class_exists( 'SearchWP' ) && apply_filters( 'searchwp_modal_form_upgrade_link', true ) ) : ?>
 					<p style="display: flex; align-items: center; margin-top: -0.8em;">
 						<span style="transform: scale(0.75); margin-right: 0.25em;"><span class="dashicons dashicons-star-filled"></span></span>
 						<span>Improve your search with <a href="https://searchwp.com/?utm_source=wordpressorg&utm_medium=link&utm_campaign=modalform&utm_content=menuitem" target="_BLANK">SearchWP!</a>
