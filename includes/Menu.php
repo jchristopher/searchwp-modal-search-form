@@ -79,10 +79,12 @@ class SearchWPModalFormMenu {
 
 		// We have a fully developed HTML document, but we only want the menu itself.
 		$full_html = $dom->saveHTML();
-		$nav_menu  = substr(
+		$start = strpos( $full_html, '<body>' ) + 6;
+		$length = strpos( $full_html, '</body>' ) - $start;
+		$nav_menu = substr(
 			$full_html,
-			strpos( $full_html, '<body>' ) + 6,
-			strpos( $full_html, '</body>' )
+			$start,
+			$length
 		);
 
 		return $nav_menu;
