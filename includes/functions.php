@@ -30,11 +30,11 @@ function searchwp_modal_form_trigger( $args ) {
 
 	if ( class_exists( 'SearchWP' ) ) {
 		// SearchWP 3.x compat.
-		if ( function_exists( 'SWP' ) ) {
-			$engine = SWP()->is_valid_engine( $args['engine'] ) ? $args['engine'] : 'default';
-		} else {
+		if ( class_exists( 'SearchWP\Settings' ) ) {
 			$engine_settings = \SearchWP\Settings::get_engine_settings( $args['engine'] );
 			$engine = $engine_settings ? $args['engine'] : 'default';
+		} else if ( function_exists( 'SWP' ) ) {
+			$engine = SWP()->is_valid_engine( $args['engine'] ) ? $args['engine'] : 'default';
 		}
 	} else {
 		$engine = '{wp_native}';
@@ -154,10 +154,10 @@ function searchwp_modal_form_get_engines() {
 	// Override if SearchWP is active.
 	if ( class_exists( 'SearchWP' ) ) {
 		// SearchWP 3.x compat.
-		if ( function_exists( 'SWP' ) ) {
-			$engines = SWP()->settings['engines'];
-		} else {
+		if ( class_exists( 'SearchWP\Settings' ) ) {
 			$engines = \SearchWP\Settings::get_engines();
+		} else if ( function_exists( 'SWP' ) ) {
+			$engines = SWP()->settings['engines'];
 		}
 	}
 
@@ -176,12 +176,12 @@ function searchwp_modal_form_get_forms() {
 	foreach ( $engines as $engine_name => $engine_settings ) {
 
 		// SearchWP 3.x compat.
-		if ( function_exists( 'SWP' ) ) {
-			$engine_label = isset( $engine_settings['searchwp_engine_label'] )
-					? $engine_settings['searchwp_engine_label']
-					: __( 'Default', 'searchwp' );
-		} else {
+		if ( method_exists( $engine_settings, 'get_label' ) ) {
 			$engine_label = $engine_settings->get_label();
+		} else {
+			$engine_label = isset( $engine_settings['searchwp_engine_label'] )
+				? $engine_settings['searchwp_engine_label']
+				: __( 'Default', 'searchwp' );
 		}
 
 		foreach ( $templates as $template ) {

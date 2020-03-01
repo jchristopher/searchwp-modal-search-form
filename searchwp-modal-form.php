@@ -85,10 +85,7 @@ class SearchWP_Modal_Form {
 		$engine = $forms[ $modal_hash ]['engine_name'];
 
 		// SearchWP 3.x compat.
-		if ( function_exists( 'SWP' ) ) {
-			$engines = SWP()->settings['engines'];
-			return array_key_exists( $engine, $engines ) ? $engines[ $engine ] : $engine_settings;
-		} else {
+		if ( class_exists( 'SearchWP\Settings' ) ) {
 			$new_engine = \SearchWP\Settings::get_engine_settings( $engine );
 
 			if ( $new_engine ) {
@@ -96,6 +93,9 @@ class SearchWP_Modal_Form {
 			}
 
 			return $engine_settings;
+		} else if ( function_exists( 'SWP' ) ) {
+			$engines = SWP()->settings['engines'];
+			return array_key_exists( $engine, $engines ) ? $engines[ $engine ] : $engine_settings;
 		}
 	}
 
