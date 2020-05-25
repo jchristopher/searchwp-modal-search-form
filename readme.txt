@@ -2,9 +2,9 @@
 Contributors: jchristopher
 Tags: search, modal, form, searchform, SearchWP
 Requires at least: 5.0
-Tested up to: 5.3.2
+Tested up to: 5.4
 Requires PHP: 7.0
-Stable tag: 0.3.3
+Stable tag: 0.3.4
 
 Quickly and easily insert modal search forms into Menus, as a Block, or directly within theme templates.
 
