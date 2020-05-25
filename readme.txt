@@ -97,6 +97,9 @@ Please review the [full template documentation](https://searchwp.com/extensions/
 
 == Changelog ==
 
+*0.3.4*
+- Fixes Error when using SearchWP 4
+
 *0.3.3*
 - Fixes Error in some cases introduced in 0.3.2
 
