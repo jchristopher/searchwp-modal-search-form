@@ -30,7 +30,7 @@ function searchwp_modal_form_trigger( $args ) {
 
 	if ( class_exists( 'SearchWP' ) ) {
 		// SearchWP 3.x compat.
-		if ( class_exists( 'SearchWP\Settings' ) ) {
+		if ( class_exists( '\\SearchWP\\Settings' ) ) {
 			$engine_settings = \SearchWP\Settings::get_engine_settings( $args['engine'] );
 			$engine = $engine_settings ? $args['engine'] : 'default';
 		} else if ( function_exists( 'SWP' ) ) {
@@ -154,8 +154,13 @@ function searchwp_modal_form_get_engines() {
 	// Override if SearchWP is active.
 	if ( class_exists( 'SearchWP' ) ) {
 		// SearchWP 3.x compat.
-		if ( class_exists( 'SearchWP\Settings' ) ) {
-			$engines = \SearchWP\Settings::get_engines();
+		if ( class_exists( '\\SearchWP\\Settings' ) ) {
+			$engines_settings = \SearchWP\Settings::_get_engines_settings();
+			$engines = array();
+
+			foreach ( $engines_settings as $name => $settings ) {
+				$engines[ $name ] = array( 'searchwp_engine_label' => $settings['label'] );
+			}
 		} else if ( function_exists( 'SWP' ) ) {
 			$engines = SWP()->settings['engines'];
 		}
