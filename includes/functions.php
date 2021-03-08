@@ -55,7 +55,7 @@ function searchwp_modal_form_trigger( $args ) {
 		<button
 			class="<?php echo esc_attr( 'button ' . $args['class'] ); ?>"
 			data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>">
-			<?php echo esc_html( $args['text'] ); ?>
+			<?php echo wp_kses( $args['text'], apply_filters( 'searchwp_modal_form_trigger_text_kses', 'post' ) ); ?>
 		</button>
 		<?php
 	} else {
@@ -64,7 +64,7 @@ function searchwp_modal_form_trigger( $args ) {
 			class="<?php echo esc_attr( $args['class'] ); ?>"
 			href="<?php echo esc_attr( '#searchwp-modal-' . $modal_hash ); ?>"
 			data-searchwp-modal-trigger="<?php echo esc_attr( 'searchwp-modal-' . $modal_hash ); ?>">
-			<?php echo esc_html( $args['text'] ); ?>
+			<?php echo wp_kses( $args['text'], apply_filters( 'searchwp_modal_form_trigger_text_kses', 'post' ) ); ?>
 		</a>
 		<?php
 	}
