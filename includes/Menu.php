@@ -49,7 +49,12 @@ class SearchWPModalFormMenu {
 
 		$dom = new DOMDocument();
 		libxml_use_internal_errors( true );
-		$dom->loadHTML( $nav_menu );
+
+		if ( function_exists( 'utf8_decode' ) ) {
+			$dom->loadHTML( utf8_decode( $nav_menu ) );
+		} else {
+			$dom->loadHTML( $nav_menu );
+		}
 
 		foreach ( $dom->getElementsByTagName( 'a' ) as $link ) {
 
