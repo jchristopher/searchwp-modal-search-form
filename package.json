@@ -2,9 +2,8 @@
   "name": "searchwp-modal-form",
   "main": "assets/src/main.js",
   "scripts": {
-    "watch": "concurrently \"npm run dev\" \"npm run blockdev\" \"npm run build\" \"npm run blockbuild\"",
-    "dev": "cross-env NODE_ENV=development node assets/bundler-dev.js",
-    "build": "cross-env NODE_ENV=production node assets/bundler-build.js",
+    "watch": "concurrently \"npm run bundle\" \"npm run blockdev\" \"npm run blockbuild\"",
+    "bundle": "rollup -c -w --environment BUILD:production",
     "blockdev": "cross-env NODE_ENV=development webpack --watch",
     "blockbuild": "cross-env NODE_ENV=production webpack"
   },
@@ -12,22 +11,22 @@
   "license": "GPL-2.0",
   "homepage": "https://searchwp.com/extensions/modal-form",
   "dependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
-    "autoprefixer": "^9.7.4",
-    "babel-loader": "^8.0.6",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-replace": "^2.4.1",
+    "babel-loader": "^8.2.2",
     "concurrently": "^6.0.0",
     "cross-env": "^5.2.1",
-    "cssnano": "^4.1.10",
-    "domready": "^1.0.8",
     "micromodal": "^0.4.2",
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^5.0.0",
-    "parcel-bundler": "^1.12.4",
+    "rollup": "^2.40.0",
+    "rollup-plugin-terser": "^7.0.2",
     "webpack": "^5.24.4",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
     "babel-core": "^6.26.3"

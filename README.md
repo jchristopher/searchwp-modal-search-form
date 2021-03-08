@@ -73,23 +73,19 @@ There is a build process for all JavaScript bundles contained within a single co
 
 This will execute four concurrent processes that watch for file changes and subsequently generate the following:
 
-1. Production version of the SearchWP Modal Search Form bundle
-1. Development version of the SearchWP Modal Search Form bundle
+1. Development and Production versions of the SearchWP Modal Search Form bundle
 1. Production version of the SearchWP Modal Search Form block
 1. Development version of the SearchWP Modal Search Form block
 
 You can run each process individually if you'd prefer:
 
 ```sh
-# Build development version of SearchWP Modal Search Form bundle
-npm run dev
+# Build development and production versions of SearchWP Modal Search Form bundle.
+npm run bundle
 
-# Build production version of SearchWP Modal Search Form bundle
-npm run build
-
-# Build development version of SearchWP Modal Search Form block
+# Build development version of SearchWP Modal Search Form block.
 npm run blockdev
 
-# Build production version of SearchWP Modal Search Form block
+# Build production version of SearchWP Modal Search Form block.
 npm run blockbuild
 ```

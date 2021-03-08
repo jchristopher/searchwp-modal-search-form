@@ -1,5 +1,5 @@
 import MicroModal from "micromodal";
-import domready from "domready";
+import whenDomReady from 'when-dom-ready';
 
 MicroModal.init({
   onShow: function(modal) {
@@ -9,7 +9,7 @@ MicroModal.init({
   }
 });
 
-domready(function() {
+whenDomReady(function() {
   // We're implementing our own click handlers for opening/closing modals so
   // we have a bit more control over how the events execute (e.g. preventing default)
   let showing = "";
