@@ -3,13 +3,13 @@
 Plugin Name: SearchWP Modal Search Form
 Plugin URI: https://searchwp.com/extensions/modal-form/
 Description: Lightweight and accessible search form
-Version: 0.3.4
+Version: 0.4.0
 Requires PHP: 5.6
 Author: SearchWP, LLC
 Author URI: https://searchwp.com/
 Text Domain: searchwpmodalform
 
-Copyright 2019-2020 SearchWP, LLC
+Copyright 2019-2021 SearchWP, LLC
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'SEARCHWP_MODAL_FORM_VERSION' ) ) {
-	define( 'SEARCHWP_MODAL_FORM_VERSION', '0.3.4' );
+	define( 'SEARCHWP_MODAL_FORM_VERSION', '0.4.0' );
 }
 
 if ( ! defined( 'SEARCHWP_MODAL_FORM_DIR' ) ) {

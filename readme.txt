@@ -2,9 +2,9 @@
 Contributors: jchristopher
 Tags: search, modal, form, searchform, SearchWP
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.6.2
 Requires PHP: 7.0
-Stable tag: 0.3.4
+Stable tag: 0.4.0
 
 Quickly and easily insert modal search forms into Menus, as a Block, or directly within theme templates.
 
@@ -96,6 +96,11 @@ Please review the [full template documentation](https://searchwp.com/extensions/
 5. Insert modal triggers as Gutenberg Blocks
 
 == Changelog ==
+
+*0.4.0*
+- Fixes issue with character encoding in some cases
+- Updates dependencies
+- Updates bundler and associated NPM commands
 
 *0.3.4*
 - Fixes Error when using SearchWP 4
