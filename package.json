@@ -18,15 +18,15 @@
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
-    "concurrently": "^4.1.2",
+    "concurrently": "^6.0.0",
     "cross-env": "^5.2.1",
     "cssnano": "^4.1.10",
     "domready": "^1.0.8",
     "micromodal": "^0.4.2",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^5.0.0",
     "parcel-bundler": "^1.12.4",
-    "webpack": "^4.41.6",
+    "webpack": "^5.24.4",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
