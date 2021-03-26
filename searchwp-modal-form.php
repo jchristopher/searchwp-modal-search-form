@@ -49,14 +49,11 @@ class SearchWP_Modal_Form {
 	 * Constructor.
 	 */
 	public function __construct() {
+		$this->includes();
+
 		add_action( 'init', array( $this, 'register_block_type' ) );
 		add_filter( 'block_categories', array( $this, 'block_categories' ) );
-
-		add_action( 'plugins_loaded', function() {
-			$this->includes();
-
-			add_action( 'wp_footer', array( $this, 'render_modals' ) );
-		});
+		add_action( 'wp_footer', array( $this, 'render_modals' ) );
 
 		// By default all generated modal forms will be using the Default SearchWP engine
 		// when applicable, but we're tagging each form with a reference to the modal
@@ -286,4 +283,11 @@ class SearchWP_Modal_Form {
 }
 
 // Kickoff!
-new SearchWP_Modal_Form();
+add_action(
+	'plugins_loaded',
+	function () {
+		new SearchWP_Modal_Form();
+	},
+	10,
+	0
+);
