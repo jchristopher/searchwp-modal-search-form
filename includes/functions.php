@@ -181,7 +181,7 @@ function searchwp_modal_form_get_forms() {
 	foreach ( $engines as $engine_name => $engine_settings ) {
 
 		// SearchWP 3.x compat.
-		if ( method_exists( $engine_settings, 'get_label' ) ) {
+		if ( is_object( $engine_settings ) && method_exists( $engine_settings, 'get_label' ) ) {
 			$engine_label = $engine_settings->get_label();
 		} else {
 			$engine_label = isset( $engine_settings['searchwp_engine_label'] )
