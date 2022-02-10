@@ -21,7 +21,7 @@
     "cross-env": "^5.2.1",
     "micromodal": "^0.4.2",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "rollup": "^2.40.0",
     "rollup-plugin-terser": "^7.0.2",
     "webpack": "^5.24.4",
